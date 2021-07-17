@@ -5,8 +5,8 @@ public class Pessoa {
     private String nome;
     private String senha;
 
-    public Pessoa(String senha, String nome) {
-        this.nome = senha;
+    public Pessoa(String nome, String senha) {
+        this.nome = nome;
         this.senha = senha;
     }
 
