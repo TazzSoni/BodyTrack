@@ -21,11 +21,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Button btCadastrar = (Button) findViewById(R.id.btCadastrar);
         btCadastrar.setOnClickListener(this);
+        Button btLogin = (Button) findViewById(R.id.btLogin);
+        btLogin.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         Intent it = new Intent(MainActivity.this, Cadastro.class);
                 startActivity(it);
+        //Intent home = new Intent(MainActivity.this, Home.class);
+        switch (view.getId()) {
+            case R.id.btCadastrar:
+                startActivity(it);
+                break;
+            case R.id.btLogin:
+              //  startActivity(home);
+                break;
+        }
     }
 }

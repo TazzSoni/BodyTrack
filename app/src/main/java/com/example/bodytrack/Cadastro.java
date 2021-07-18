@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +14,7 @@ import com.example.bodytrack.Model.Pessoa;
 
 public class Cadastro extends AppCompatActivity implements View.OnClickListener {
 
+    Toast toast;
     Pessoa pessoa;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +25,7 @@ public class Cadastro extends AppCompatActivity implements View.OnClickListener 
         btVoltar.setOnClickListener(this);
         Button btCadastrar = (Button) findViewById(R.id.btCadastrarPessoa);
         btCadastrar.setOnClickListener(this);
+
     }
 
     @Override
@@ -34,11 +37,33 @@ public class Cadastro extends AppCompatActivity implements View.OnClickListener 
                 break;
             case R.id.btCadastrarPessoa:
                 EditText nome = (EditText) findViewById(R.id.taCadastroNome);
+                EditText login = (EditText) findViewById(R.id.taLogin);
                 EditText senha = (EditText) findViewById(R.id.taCadastroSenha);
-                pessoa = new Pessoa(nome.getText().toString(), senha.getText().toString());
-                Toast toast = Toast.makeText(this, pessoa.toString(), Toast.LENGTH_SHORT);
-                startActivity(it);
-                toast.show();
+                EditText confirmaSenha = (EditText) findViewById(R.id.taConfirmarSenha);
+                EditText peso = (EditText) findViewById(R.id.taPeso);
+                EditText altura = (EditText) findViewById(R.id.taAltura);
+                if(TextUtils.isEmpty(senha.getText().toString())){
+                    toast = Toast.makeText(this, "Senha não confere!!", Toast.LENGTH_SHORT);
+                    toast.show();
+                }else if(TextUtils.isEmpty(confirmaSenha.getText().toString())){
+                    toast = Toast.makeText(this, "Senha não confere!!", Toast.LENGTH_SHORT);
+                    toast.show();
+                }else if(senha.getText().toString().equals(confirmaSenha.getText().toString())){
+                    pessoa = new Pessoa(
+                            nome.getText().toString(),
+                            login.getText().toString(),
+                            senha.getText().toString(),
+                            Double.parseDouble(peso.getText().toString().replace(',', '.')),
+                            Double.parseDouble(altura.getText().toString().replace(',', '.')));
+
+                    toast = Toast.makeText(this, pessoa.toString(), Toast.LENGTH_SHORT);
+                    startActivity(it);
+                    toast.show();
+
+                }else{
+                    toast = Toast.makeText(this, "Senha não confere!!", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
                 break;
             default:
                 break;
