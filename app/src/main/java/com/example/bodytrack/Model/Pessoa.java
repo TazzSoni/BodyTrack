@@ -1,11 +1,25 @@
 package com.example.bodytrack.Model;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity
 public class Pessoa {
 
+    @ColumnInfo (name = "nome")
     private String nome;
+
+    @PrimaryKey
     private String login;
+
+    @ColumnInfo (name = "senha")
     private String senha;
+
+    @ColumnInfo (name = "peso")
     private double peso;
+
+    @ColumnInfo (name = "altura")
     private double altura;
 
     public Pessoa(String nome,String login, String senha, double peso, double altura) {
