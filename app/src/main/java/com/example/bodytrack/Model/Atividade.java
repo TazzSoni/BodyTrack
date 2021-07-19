@@ -15,15 +15,11 @@ public class Atividade {
     @ColumnInfo(name = "nome")
     private String nome;
 
-    private List<Serie> series = new ArrayList<>();
 
     public Atividade(String nome) {
         this.nome = nome;
     }
 
-    public void addSerie(Serie serie){
-        this.series.add(serie);
-    }
 
     public long getId() {
         return id;
@@ -41,11 +37,4 @@ public class Atividade {
         this.nome = nome;
     }
 
-    public List<Serie> getSeries() {
-        return series;
-    }
-
-    public void setSeries(List<Serie> series) {
-        this.series = series;
-    }
 }

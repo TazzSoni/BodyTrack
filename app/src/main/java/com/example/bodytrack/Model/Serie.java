@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey;
 public class Serie {
 
     @PrimaryKey (autoGenerate = true)
-    private long id;
+    private int numSerie;
 
     @ColumnInfo (name = "repeticao")
     private int repeticao;
@@ -16,17 +16,17 @@ public class Serie {
     @ColumnInfo (name = "peso")
     private int peso;
 
-    public Serie(int repeticao, int peso) {
+    public Serie(int numSerie, int repeticao, int peso) {
         this.repeticao = repeticao;
         this.peso = peso;
     }
 
-    public long getId() {
-        return id;
+    public int getNumSerie() {
+        return numSerie;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setNumSerie(int numSerie) {
+        this.numSerie = numSerie;
     }
 
     public int getRepeticao() {
