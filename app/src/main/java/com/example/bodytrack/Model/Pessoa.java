@@ -4,13 +4,17 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import org.jetbrains.annotations.NotNull;
+
 @Entity
 public class Pessoa {
+
 
     @ColumnInfo (name = "nome")
     private String nome;
 
     @PrimaryKey
+    @NotNull
     private String login;
 
     @ColumnInfo (name = "senha")
@@ -28,6 +32,15 @@ public class Pessoa {
         this.senha = senha;
         this.peso = peso;
         this.altura = altura;
+    }
+
+    @NotNull
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(@NotNull String login) {
+        this.login = login;
     }
 
     public double getPeso() {

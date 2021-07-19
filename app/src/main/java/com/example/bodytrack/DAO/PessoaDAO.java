@@ -1,4 +1,4 @@
-package com.example.bodytrack;
+package com.example.bodytrack.DAO;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -15,7 +15,7 @@ public interface PessoaDAO {
     List<Pessoa> getAll();
 
     @Insert
-    void insertAll(Pessoa ... pessoas);
+    void insertAll(Pessoa... pessoas);
 
     @Delete
     void delete(Pessoa pessoa);

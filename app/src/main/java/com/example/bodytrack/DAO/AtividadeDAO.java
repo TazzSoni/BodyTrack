@@ -1,4 +1,4 @@
-package com.example.bodytrack;
+package com.example.bodytrack.DAO;
 
 import androidx.room.Dao;
 import androidx.room.Delete;

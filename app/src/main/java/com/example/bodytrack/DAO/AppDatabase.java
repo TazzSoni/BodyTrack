@@ -1,4 +1,4 @@
-package com.example.bodytrack;
+package com.example.bodytrack.DAO;
 
 import androidx.room.Database;
 import androidx.room.RoomDatabase;

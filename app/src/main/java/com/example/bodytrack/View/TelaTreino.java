@@ -1,45 +1,40 @@
-package com.example.bodytrack;
+package com.example.bodytrack.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
-public class Home extends AppCompatActivity  {
+import com.example.bodytrack.R;
+
+public class TelaTreino extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_tela_treino);
+
         ImageView voltar = findViewById(R.id.left_arrow);
         ImageView sair = findViewById(R.id.right_arrow);
-        Button cadastrartreino = findViewById(R.id.btCadastrarTreino);
+        TextView titulo = findViewById(R.id.title_toolbar);
+        titulo.setText("Cadastro de treino");
 
         sair.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent it = new Intent(Home.this, MainActivity.class);
+                Intent it = new Intent(TelaTreino.this, MainActivity.class);
                 startActivity(it);
             }
         });
         voltar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent it = new Intent(Home.this, MainActivity.class);
+                Intent it = new Intent(TelaTreino.this, Home.class);
                 startActivity(it);
             }
         });
-        cadastrartreino.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent it = new Intent(Home.this, TelaTreino.class);
-                startActivity(it);
-            }
-        });
-
     }
-
-   }
+}

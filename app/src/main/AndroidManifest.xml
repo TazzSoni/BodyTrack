@@ -9,10 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BodyTrack">
-        <activity android:name=".TelaTreino"></activity>
-        <activity android:name=".Home" />
-        <activity android:name=".Cadastro" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".View.TelaTreino"></activity>
+        <activity android:name=".View.Home" />
+        <activity android:name=".View.Cadastro" />
+        <activity android:name=".View.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
