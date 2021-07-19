@@ -37,7 +37,7 @@ public class Home extends AppCompatActivity  {
         cadastrartreino.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent it = new Intent(Home.this, TelaTreino.class);
+                Intent it = new Intent(Home.this, CadastroTreino.class);
                 startActivity(it);
             }
         });

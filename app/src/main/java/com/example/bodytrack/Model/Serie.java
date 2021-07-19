@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey;
 @Entity
 public class Serie {
 
-    @PrimaryKey
+    @PrimaryKey (autoGenerate = true)
     private long id;
 
     @ColumnInfo (name = "repeticao")

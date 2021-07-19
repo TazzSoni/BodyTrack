@@ -4,11 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".View.TelaTreino">
+    tools:context=".View.CadastroTreino">
 
     <include
         android:id="@+id/include"
-        layout="@layout/toolbar" />
+        layout="@layout/toolbar"
+        app:layout_constraintBottom_toTopOf="@+id/listAtividadeTreino"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btCadastraAtividade"
@@ -18,8 +22,10 @@
         app:backgroundTint="@color/design_default_color_secondary_variant"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/_dynamic" />
+        app:layout_constraintTop_toBottomOf="@+id/include"
+        app:layout_constraintVertical_bias="1.0" />
 
     <ListView
         android:id="@+id/listAtividadeTreino"

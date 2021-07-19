@@ -6,6 +6,9 @@ import androidx.room.PrimaryKey;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 public class Pessoa {
 
@@ -25,6 +28,8 @@ public class Pessoa {
 
     @ColumnInfo (name = "altura")
     private double altura;
+
+    private List<Atividade> atividades = new ArrayList<>();
 
     public Pessoa(String nome,String login, String senha, double peso, double altura) {
         this.nome = nome;
@@ -73,6 +78,18 @@ public class Pessoa {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public void addAtividade(Atividade atividade){
+        this.atividades.add(atividade);
+    }
+
+    public List<Atividade> getAtividades() {
+        return atividades;
+    }
+
+    public void setAtividades(List<Atividade> atividades) {
+        this.atividades = atividades;
     }
 
     @Override
