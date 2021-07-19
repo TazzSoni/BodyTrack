@@ -1,9 +1,19 @@
 package com.example.bodytrack.Model;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity
 public class Serie {
 
+    @PrimaryKey
     private long id;
+
+    @ColumnInfo (name = "repeticao")
     private int repeticao;
+
+    @ColumnInfo (name = "peso")
     private int peso;
 
     public Serie(int repeticao, int peso) {
