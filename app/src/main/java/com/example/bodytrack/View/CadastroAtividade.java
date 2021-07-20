@@ -30,27 +30,23 @@ public class CadastroAtividade extends AppCompatActivity {
 
         context = this;
         List<Serie> series = new ArrayList<Serie>();
-        series.add(new Serie(1,8,20));
-        series.add(new Serie(2,10,20));
-
-        Atividade atividade = new Atividade("Atividade 1", series);
-        AtividadeSerie atSerie = new AtividadeSerie(atividade, series);
-
+        Atividade atividade = new Atividade("Atividade 1");
+        series.add(new Serie(8,20, atividade));
+        series.add(new Serie(10,20, atividade));
 
         ListView list = findViewById(R.id.listCadastroAtividade);
         list.setAdapter(new CadastroAtvAdapter(this, series));
 
-        salvarSerie(series,atSerie);
+        salvarSerie(series);
     }
 
-    public void salvarSerie(List<Serie> series, AtividadeSerie atSerie){
+    public void salvarSerie(List<Serie> series){
         AppDatabase db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "bodytrack-db").allowMainThreadQueries().build();
         try{
             for(Serie serie : series){
                 db.serieDao().insertAll(serie);
             }
-            db.atividadeSerieDao().insertAll(atSerie);
             Toast.makeText(this,"Fez",Toast.LENGTH_LONG).show();
         }catch (Exception e){
             Toast.makeText(this,e.getMessage(),Toast.LENGTH_LONG).show();

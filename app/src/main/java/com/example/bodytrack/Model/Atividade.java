@@ -1,11 +1,11 @@
 package com.example.bodytrack.Model;
 
-import java.util.ArrayList;
-import java.util.List;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+
+import java.util.List;
 
 @Entity
 public class Atividade {
@@ -17,19 +17,11 @@ public class Atividade {
     private String nome;
 
     @Ignore
-    private List<Serie> series = null;
-
-    public Atividade() {
-    }
+    private List<Serie> series;
 
     @Ignore
-    public Atividade(String nome, List<Serie> series) {
+    public Atividade(String nome) {
         this.nome = nome;
-        this.series = series;
-    }
-
-    public void addSerie(Serie serie){
-        this.series.add(serie);
     }
 
     public long getId() {
@@ -49,10 +41,7 @@ public class Atividade {
     }
 
     public List<Serie> getSeries() {
+        //TODO consulta no banco
         return series;
-    }
-
-    public void setSeries(List<Serie> series) {
-        this.series = series;
     }
 }

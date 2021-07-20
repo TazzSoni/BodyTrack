@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "a848c5d3e78a528c138e44f87dd4ad0e",
+    "identityHash": "77d9a2b14785e05c970a83686121f663",
     "entities": [
       {
         "tableName": "Pessoa",
@@ -50,17 +50,11 @@
       },
       {
         "tableName": "Serie",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`numSerie` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `atividadeId` INTEGER NOT NULL, `repeticao` INTEGER NOT NULL, `peso` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`numSerie` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `repeticao` INTEGER NOT NULL, `peso` INTEGER NOT NULL, `atividade` TEXT)",
         "fields": [
           {
             "fieldPath": "numSerie",
             "columnName": "numSerie",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "atividadeId",
-            "columnName": "atividadeId",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -75,6 +69,12 @@
             "columnName": "peso",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "atividade",
+            "columnName": "atividade",
+            "affinity": "TEXT",
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -83,7 +83,16 @@
           ],
           "autoGenerate": true
         },
-        "indices": [],
+        "indices": [
+          {
+            "name": "index_Serie_atividade",
+            "unique": false,
+            "columnNames": [
+              "atividade"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Serie_atividade` ON `${TABLE_NAME}` (`atividade`)"
+          }
+        ],
         "foreignKeys": []
       },
       {
@@ -114,7 +123,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a848c5d3e78a528c138e44f87dd4ad0e')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '77d9a2b14785e05c970a83686121f663')"
     ]
   }
 }
