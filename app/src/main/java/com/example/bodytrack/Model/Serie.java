@@ -8,11 +8,7 @@ import androidx.room.PrimaryKey;
 
 import static androidx.room.ForeignKey.CASCADE;
 
-@Entity(foreignKeys = {@ForeignKey(entity = Atividade.class,
-        parentColumns = "id",
-        childColumns = "atividadeId",
-        onDelete = ForeignKey.CASCADE)
-})
+@Entity
 public class Serie {
 
     @PrimaryKey (autoGenerate = true)
@@ -22,15 +18,7 @@ public class Serie {
 
     private int peso;
 
-    @ColumnInfo(index = true)
-    private Atividade atividade;
-
-    @Ignore
-    public Serie(int repeticao, int peso, Atividade atividade) {
-        super();
-        this.repeticao = repeticao;
-        this.peso = peso;
-        this.atividade = atividade;
+    public Serie() {
     }
 
     public long getNumSerie() {

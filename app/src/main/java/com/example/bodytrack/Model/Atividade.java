@@ -2,7 +2,6 @@ package com.example.bodytrack.Model;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.util.List;
@@ -15,14 +14,6 @@ public class Atividade {
 
     @ColumnInfo(name = "nome")
     private String nome;
-
-    @Ignore
-    private List<Serie> series;
-
-    @Ignore
-    public Atividade(String nome) {
-        this.nome = nome;
-    }
 
     public long getId() {
         return id;
@@ -40,8 +31,4 @@ public class Atividade {
         this.nome = nome;
     }
 
-    public List<Serie> getSeries() {
-        //TODO consulta no banco
-        return series;
-    }
 }

@@ -48,14 +48,25 @@
         app:layout_constraintTop_toTopOf="@+id/include"
         app:layout_constraintVertical_bias="0.976" />
 
-    <ListView
-        android:id="@+id/listHomeTreinos"
-        android:layout_width="409dp"
-        android:layout_height="516dp"
-        android:layout_marginTop="1dp"
-        app:layout_constraintBottom_toTopOf="@+id/btCadastrarTreino"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lbHome" />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:padding="55dp"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints">
+
+        <ListView
+            android:id="@+id/listHome"
+            android:layout_marginTop="110dp"
+            android:padding="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="450dp"
+            android:animationCache="false"
+            android:choiceMode="multipleChoice"
+            android:scrollingCache="false"
+            android:smoothScrollbar="true"
+            android:divider="#00000000"
+            android:dividerHeight="10dp"/>
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

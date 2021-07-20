@@ -7,7 +7,6 @@ import androidx.room.Query;
 import androidx.room.Transaction;
 
 import com.example.bodytrack.Model.Atividade;
-import com.example.bodytrack.Model.AtividadeSerie;
 import com.example.bodytrack.Model.Serie;
 
 import java.util.List;
@@ -19,10 +18,6 @@ public interface AtividadeDAO {
 
     @Insert
     void insertAll(Atividade atividade);
-
-    @Transaction
-    @Insert
-    void insertSeries(List<Serie> series);
 
     @Delete
     void delete(Atividade atividade);

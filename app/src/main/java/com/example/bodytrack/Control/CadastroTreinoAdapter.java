@@ -4,31 +4,29 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.CheckBox;
 import android.widget.TextView;
 
-import com.example.bodytrack.Model.Serie;
+import com.example.bodytrack.Model.Atividade;
 
 import java.util.List;
 
-public class CadastroAtvAdapter extends BaseAdapter {
-
+public class CadastroTreinoAdapter extends BaseAdapter {
     private Context context;
-    private List<Serie> series;
+    private List<Atividade> atividades;
 
-    public CadastroAtvAdapter(Context context, List<Serie> series) {
+    public CadastroTreinoAdapter(Context context, List<Atividade> atividades) {
         this.context = context;
-        this.series = series;
+        this.atividades = atividades;
     }
 
     @Override
     public int getCount() {
-        return this.series.size();
+        return this.atividades.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return series.get(position);
+        return atividades.get(position);
     }
 
     @Override
@@ -39,9 +37,9 @@ public class CadastroAtvAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
         TextView texto = new TextView(context);
-        Serie serieAtual = series.get(position);
+        Atividade atividade = atividades.get(position);
         texto.setText(
-                serieAtual.getNumSerie()+ "                   "+serieAtual.getPeso() + "                   " + serieAtual.getRepeticao()
+                atividade.getNome()
         );
         texto.setTextSize(16);
         return texto;

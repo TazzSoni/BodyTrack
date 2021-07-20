@@ -7,9 +7,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.bodytrack.Control.CadastroAtvAdapter;
+import com.example.bodytrack.Control.CadastroTreinoAdapter;
+import com.example.bodytrack.Model.Atividade;
 import com.example.bodytrack.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CadastroTreino extends AppCompatActivity {
 
@@ -17,6 +24,22 @@ public class CadastroTreino extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_treino);
+
+        List<Atividade> atividades = new ArrayList<>();
+
+        Atividade atividade1 = new Atividade();
+        atividade1.setNome("Atividade 1");
+        Atividade atividade2 = new Atividade();
+        atividade2.setNome("Atividade 2");
+        Atividade atividade3 = new Atividade();
+        atividade3.setNome("Atividade 3");
+
+        atividades.add(atividade1);
+        atividades.add(atividade2);
+        atividades.add(atividade3);
+
+        ListView list = findViewById(R.id.listCadastroTreino);
+        list.setAdapter(new CadastroTreinoAdapter(this, atividades));
 
         ImageView voltar = findViewById(R.id.left_arrow);
         ImageView sair = findViewById(R.id.right_arrow);

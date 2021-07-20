@@ -98,7 +98,9 @@
             android:animationCache="false"
             android:choiceMode="multipleChoice"
             android:scrollingCache="false"
-            android:smoothScrollbar="true" />
+            android:smoothScrollbar="true"
+            android:divider="#00000000"
+            android:dividerHeight="10dp"/>
     </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

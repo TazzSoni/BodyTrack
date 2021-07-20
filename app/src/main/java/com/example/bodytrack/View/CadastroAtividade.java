@@ -4,14 +4,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.bodytrack.Control.CadastroAtvAdapter;
 import com.example.bodytrack.DAO.AppDatabase;
 import com.example.bodytrack.Model.Atividade;
-import com.example.bodytrack.Model.AtividadeSerie;
 import com.example.bodytrack.Model.Serie;
 import com.example.bodytrack.R;
 
@@ -30,27 +33,41 @@ public class CadastroAtividade extends AppCompatActivity {
 
         context = this;
         List<Serie> series = new ArrayList<Serie>();
-        Atividade atividade = new Atividade("Atividade 1");
-        series.add(new Serie(8,20, atividade));
-        series.add(new Serie(10,20, atividade));
+        Atividade atividade = new Atividade();
+        atividade.setNome("Atividade 1");
+
+        Serie serie1 = new Serie();
+        serie1.setPeso(10);
+        serie1.setRepeticao(10);
+        Serie serie2 = new Serie();
+        serie2.setRepeticao(10);
+        serie2.setPeso(10);
+
+        series.add(serie1);
+        series.add(serie2);
 
         ListView list = findViewById(R.id.listCadastroAtividade);
         list.setAdapter(new CadastroAtvAdapter(this, series));
 
-        salvarSerie(series);
-    }
 
-    public void salvarSerie(List<Serie> series){
-        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class, "bodytrack-db").allowMainThreadQueries().build();
-        try{
-            for(Serie serie : series){
-                db.serieDao().insertAll(serie);
+        ImageView voltar = findViewById(R.id.left_arrow);
+        ImageView sair = findViewById(R.id.right_arrow);
+
+        sair.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(CadastroAtividade.this, MainActivity.class);
+                startActivity(it);
             }
-            Toast.makeText(this,"Fez",Toast.LENGTH_LONG).show();
-        }catch (Exception e){
-            Toast.makeText(this,e.getMessage(),Toast.LENGTH_LONG).show();
-        }
+        });
+        voltar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(CadastroAtividade.this, CadastroTreino.class);
+                startActivity(it);
+            }
+        });
+
     }
 
 }
