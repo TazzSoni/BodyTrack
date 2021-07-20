@@ -1,34 +1,25 @@
 package com.example.bodytrack.Model;
 
 import androidx.room.Embedded;
+import androidx.room.Entity;
 import androidx.room.Relation;
 
 import java.util.List;
 
+@Entity
 public class AtividadeSerie {
 
     @Embedded
     public Atividade atividade;
     @Relation(
             parentColumn = "id",
-            entityColumn = "atividadeId",
+            entityColumn = "numSerie",
             entity = Serie.class
     )
-    private List<Serie> series ;
+    public List<Serie> series ;
 
-    public Atividade getAtividade() {
-        return atividade;
-    }
-
-    public void setAtividade(Atividade atividade) {
+    public AtividadeSerie(Atividade atividade, List<Serie> series) {
         this.atividade = atividade;
-    }
-
-    public List<Serie> getSeries() {
-        return series;
-    }
-
-    public void setSeries(List<Serie> series) {
         this.series = series;
     }
 }

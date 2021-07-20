@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "a4d8ad07b29c885c5a9e2ef94a6376ea",
+    "identityHash": "a848c5d3e78a528c138e44f87dd4ad0e",
     "entities": [
       {
         "tableName": "Pessoa",
@@ -50,11 +50,17 @@
       },
       {
         "tableName": "Serie",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`numSerie` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `repeticao` INTEGER NOT NULL, `peso` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`numSerie` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `atividadeId` INTEGER NOT NULL, `repeticao` INTEGER NOT NULL, `peso` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "numSerie",
             "columnName": "numSerie",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "atividadeId",
+            "columnName": "atividadeId",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -79,12 +85,36 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "AtividadeSerie",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER, `nome` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "atividade.id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "atividade.nome",
+            "columnName": "nome",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a4d8ad07b29c885c5a9e2ef94a6376ea')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a848c5d3e78a528c138e44f87dd4ad0e')"
     ]
   }
 }

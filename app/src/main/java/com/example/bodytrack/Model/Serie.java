@@ -2,30 +2,37 @@ package com.example.bodytrack.Model;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+
+import static androidx.room.ForeignKey.CASCADE;
 
 @Entity
 public class Serie {
 
     @PrimaryKey (autoGenerate = true)
-    private int numSerie;
+    private long numSerie;
 
-    @ColumnInfo (name = "repeticao")
     private int repeticao;
 
-    @ColumnInfo (name = "peso")
     private int peso;
 
+    public Serie() {
+    }
+
+    @Ignore
     public Serie(int numSerie, int repeticao, int peso) {
+        super();
         this.repeticao = repeticao;
         this.peso = peso;
     }
 
-    public int getNumSerie() {
+    public long getNumSerie() {
         return numSerie;
     }
 
-    public void setNumSerie(int numSerie) {
+    public void setNumSerie(long numSerie) {
         this.numSerie = numSerie;
     }
 
