@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.example.bodytrack.Model.PessoaTreinos;
 import com.example.bodytrack.Model.Serie;
 import com.example.bodytrack.Model.Treino;
 

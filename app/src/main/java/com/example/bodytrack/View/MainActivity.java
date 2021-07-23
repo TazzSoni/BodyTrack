@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.bodytrack.DAO.AppDatabase;
+import com.example.bodytrack.Model.AppDatabase;
 import com.example.bodytrack.Model.Pessoa;
 import com.example.bodytrack.R;
 

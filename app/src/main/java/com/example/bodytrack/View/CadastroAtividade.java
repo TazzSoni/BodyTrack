@@ -1,19 +1,15 @@
 package com.example.bodytrack.View;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.bodytrack.Control.CadastroAtvAdapter;
-import com.example.bodytrack.DAO.AppDatabase;
 import com.example.bodytrack.Model.Atividade;
 import com.example.bodytrack.Model.Serie;
 import com.example.bodytrack.R;

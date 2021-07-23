@@ -1,20 +1,30 @@
 package com.example.bodytrack.Model;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Treino {
 
+    @PrimaryKey (autoGenerate = true)
+    @NotNull
+    private long treinoId;
     private String nome;
-    private List<Atividade> atividades = new ArrayList<>();
 
-    public Treino(String nome) {
-        this.nome = nome;
+    @NotNull
+    public long getTreinoId() {
+        return treinoId;
     }
 
-    public void addAtividade(Atividade atividade){
-        this.atividades.add(atividade);
+    public void setTreinoId(@NotNull long treinoId) {
+        this.treinoId = treinoId;
     }
+
 
     public String getNome() {
         return nome;
@@ -24,11 +34,11 @@ public class Treino {
         this.nome = nome;
     }
 
-    public List<Atividade> getAtividades() {
-        return atividades;
-    }
-
-    public void setAtividades(List<Atividade> atividades) {
-        this.atividades = atividades;
+    @Override
+    public String toString() {
+        return "Treino{" +
+                "treinoId=" + treinoId +
+                ", nome='" + nome + '\'' +
+                '}';
     }
 }
