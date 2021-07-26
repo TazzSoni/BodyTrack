@@ -13,12 +13,15 @@ public class Serie {
 
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     @PrimaryKey (autoGenerate = true)
     private long numSerie;
 
     private int repeticao;
 
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
     @PrimaryKey(autoGenerate = true)
@@ -29,6 +32,9 @@ public class Serie {
 
     @ColumnInfo(name = "peso")
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
