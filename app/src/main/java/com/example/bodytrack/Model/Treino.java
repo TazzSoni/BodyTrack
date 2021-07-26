@@ -5,15 +5,13 @@ import androidx.room.PrimaryKey;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
 public class Treino {
 
-    @PrimaryKey (autoGenerate = true)
+    @PrimaryKey
     @NotNull
     private long treinoId;
+
     private String nome;
 
     @NotNull

@@ -39,9 +39,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(it);
                 break;
             case R.id.btLogin:
-                EditText login = (EditText) findViewById(R.id.talogin);
-                EditText senha = (EditText) findViewById(R.id.taSenha);
-                logar(login.getText().toString(), senha.getText().toString());
+
+                Intent ut = new Intent(MainActivity.this, Home.class);
+                startActivity(ut);
+//                EditText login = (EditText) findViewById(R.id.talogin);
+//                EditText senha = (EditText) findViewById(R.id.taSenha);
+//                logar(login.getText().toString(), senha.getText().toString());
                 break;
         }
     }

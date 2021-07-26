@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.example.bodytrack.Model.PessoaTreinos;
 import com.example.bodytrack.Model.Serie;
 import com.example.bodytrack.Model.Treino;
+import com.example.bodytrack.View.Home;
 
 import java.util.List;
 

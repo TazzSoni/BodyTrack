@@ -36,11 +36,21 @@ public class Home extends AppCompatActivity  {
         Button cadastrartreino = findViewById(R.id.btCadastrarTreino);
 
         Treino treino = new Treino();
+        treino.setTreinoId(5);
         treino.setNome("Treino 1");
-
         salvarTreino(treino);
 
-        Pessoa pessoa = new Pessoa("Rodrigo", "rod", "123", 10, 10);
+        Treino treino2 = new Treino();
+        treino2.setTreinoId(1);
+        treino2.setNome("Treino 2");
+        salvarTreino(treino2);
+
+        Treino treino3 = new Treino();
+        treino3.setTreinoId(2);
+        treino3.setNome("Treino 3");
+        salvarTreino(treino3);
+
+        Pessoa pessoa = new Pessoa("Alberto", "alb", "123", 10, 10);
 
         salvarPessoa(pessoa);
 
@@ -49,11 +59,21 @@ public class Home extends AppCompatActivity  {
         pessoaTreinoCrossRef.setTreinoId(treino.getTreinoId());
         salvarPessoaCrossRef(pessoaTreinoCrossRef);
 
+        pessoaTreinoCrossRef = new PessoaTreinoCrossRef();
+        pessoaTreinoCrossRef.setLogin(pessoa.getLogin());
+        pessoaTreinoCrossRef.setTreinoId(treino2.getTreinoId());
+        salvarPessoaCrossRef(pessoaTreinoCrossRef);
+
+        pessoaTreinoCrossRef = new PessoaTreinoCrossRef();
+        pessoaTreinoCrossRef.setLogin(pessoa.getLogin());
+        pessoaTreinoCrossRef.setTreinoId(treino3.getTreinoId());
+        salvarPessoaCrossRef(pessoaTreinoCrossRef);
+
 
         ListView list = findViewById(R.id.listHome);
-        List<PessoaTreinos> treinos = buscarPessoaTreinos();
-        //list.setAdapter(new HomeAdapter(this, treinos));
-        Toast.makeText(this, treinos.toString(), Toast.LENGTH_LONG).show();
+        List<PessoaTreinos> pessoasTreinos = buscarPessoaTreinos();
+        List<Treino> treinos = pessoasTreinos.get(0).treinos;
+        list.setAdapter(new HomeAdapter(this, treinos));
 
         sair.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,6 +130,7 @@ public class Home extends AppCompatActivity  {
             db.pessoaCrossRefDAO().insertAll(pessoaTreinoCrossRef);
         }
         catch (Exception e){
+            System.out.println("Erro  = "+e);
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }

@@ -1,0 +1,143 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "5f1199a78ffa5b7038cda5eaa4e13ddb",
+    "entities": [
+      {
+        "tableName": "Pessoa",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`nome` TEXT, `login` TEXT NOT NULL, `senha` TEXT, `peso` REAL NOT NULL, `altura` REAL NOT NULL, PRIMARY KEY(`login`))",
+        "fields": [
+          {
+            "fieldPath": "nome",
+            "columnName": "nome",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "login",
+            "columnName": "login",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "senha",
+            "columnName": "senha",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "peso",
+            "columnName": "peso",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "altura",
+            "columnName": "altura",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "login"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Serie",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`numSerie` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `repeticao` INTEGER NOT NULL, `peso` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "numSerie",
+            "columnName": "numSerie",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "repeticao",
+            "columnName": "repeticao",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "peso",
+            "columnName": "peso",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "numSerie"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Treino",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`treinoId` INTEGER NOT NULL, `nome` TEXT, PRIMARY KEY(`treinoId`))",
+        "fields": [
+          {
+            "fieldPath": "treinoId",
+            "columnName": "treinoId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nome",
+            "columnName": "nome",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "treinoId"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "PessoaTreinoCrossRef",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`login` TEXT NOT NULL, `treinoId` INTEGER NOT NULL, PRIMARY KEY(`login`, `treinoId`))",
+        "fields": [
+          {
+            "fieldPath": "login",
+            "columnName": "login",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "treinoId",
+            "columnName": "treinoId",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "login",
+            "treinoId"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5f1199a78ffa5b7038cda5eaa4e13ddb')"
+    ]
+  }
+}

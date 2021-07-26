@@ -9,7 +9,7 @@ import java.util.List;
 public class PessoaTreinos {
 
     @Embedded
-    public Pessoa aluno;
+    public Pessoa pessoa;
     @Relation(
             parentColumn = "login",
             entityColumn = "treinoId",
@@ -20,7 +20,7 @@ public class PessoaTreinos {
     @Override
     public String toString() {
         return "PessoaTreinos{" +
-                "aluno=" + aluno +
+                "pessoa=" + pessoa +
                 ", treinos=" + treinos +
                 '}';
     }
