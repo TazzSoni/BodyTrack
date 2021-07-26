@@ -5,6 +5,9 @@ package com.example.bodytrack.Model;
 import java.util.ArrayList;
 import java.util.List;
 
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;

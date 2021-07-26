@@ -1,16 +1,22 @@
 package com.example.bodytrack.Model;
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 import org.jetbrains.annotations.NotNull;
 
 =======
+=======
+>>>>>>> Stashed changes
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +24,7 @@ import java.util.List;
 @Entity
 public class Treino {
 
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
     @PrimaryKey (autoGenerate = true)
     @NotNull
@@ -29,6 +36,13 @@ public class Treino {
 
     @ColumnInfo(name = "nome")
     private String nome;
+=======
+    @PrimaryKey(autoGenerate = true)
+    private long id;
+
+    @ColumnInfo(name = "nome")
+    private String nome;
+>>>>>>> Stashed changes
 
     private List<Atividade> atividades = new ArrayList<>();
 >>>>>>> Stashed changes
@@ -39,9 +53,12 @@ public class Treino {
     }
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     public void setTreinoId(@NotNull long treinoId) {
         this.treinoId = treinoId;
 =======
+=======
+>>>>>>> Stashed changes
     public long getId() {
         return id;
     }

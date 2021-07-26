@@ -30,6 +30,10 @@ public class Pessoa {
     private double altura;
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+    private List<Treino> treinos = new ArrayList<>();
+>>>>>>> Stashed changes
 =======
     private List<Treino> treinos = new ArrayList<>();
 >>>>>>> Stashed changes
@@ -84,7 +88,10 @@ public class Pessoa {
     }
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
     public void addTreino(Treino treino){
         this.treinos.add(treino);
     }

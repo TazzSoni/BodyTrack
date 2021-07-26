@@ -12,12 +12,15 @@ import static androidx.room.ForeignKey.CASCADE;
 public class Serie {
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     @PrimaryKey (autoGenerate = true)
     private long numSerie;
 
     private int repeticao;
 
 =======
+=======
+>>>>>>> Stashed changes
     @PrimaryKey(autoGenerate = true)
     private long id;
 
@@ -25,6 +28,9 @@ public class Serie {
     private int repeticao;
 
     @ColumnInfo(name = "peso")
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
     private int peso;
 
