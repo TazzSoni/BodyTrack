@@ -33,6 +33,7 @@ public class Home extends AppCompatActivity  {
     Pessoa pessoaSecao;
 
 
+
     public void setPessoaSecao() {
         AppDatabase db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "bodytrack-db").allowMainThreadQueries().build();
@@ -44,6 +45,14 @@ public class Home extends AppCompatActivity  {
 
     public Pessoa getPessoaSecao() {
         return pessoaSecao;
+    }
+
+    public PessoaTreinoCrossRef getPessoaTreinoCrossRef() {
+        return pessoaTreinoCrossRef;
+    }
+
+    public void setPessoaTreinoCrossRef(PessoaTreinoCrossRef pessoaTreinoCrossRef) {
+        this.pessoaTreinoCrossRef = pessoaTreinoCrossRef;
     }
 
     @Override
@@ -98,6 +107,14 @@ public class Home extends AppCompatActivity  {
             @Override
             public void onClick(View view) {
                 Intent it = new Intent(Home.this, CadastroTreino.class);
+                //Create the bundle
+                Bundle bundle = new Bundle();
+
+                //Add your data to bundle
+                bundle.putLong("data", pessoaTreinoCrossRef.getTreinoId());
+
+                //Add the bundle to the intent
+                it.putExtras(bundle);
                 startActivity(it);
             }
         });

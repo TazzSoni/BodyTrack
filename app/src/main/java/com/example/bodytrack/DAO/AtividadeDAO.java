@@ -16,6 +16,9 @@ public interface AtividadeDAO {
     @Query("SELECT * FROM atividade")
     List<Atividade> getAll();
 
+    @Query("SELECT * FROM atividade where atividadeId = :atividadeId")
+    Atividade getOne(long atividadeId);
+
     @Insert
     void insertAll(Atividade atividade);
 

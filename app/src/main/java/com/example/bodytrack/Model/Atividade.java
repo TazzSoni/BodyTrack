@@ -4,23 +4,27 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 @Entity
 public class Atividade {
 
-    @PrimaryKey (autoGenerate = true)
-    private long id;
+    @PrimaryKey
+    @NotNull
+    private long atividadeId;
 
     @ColumnInfo(name = "nome")
     private String nome;
 
-    public long getId() {
-        return id;
+    @NotNull
+    public long getAtividadeId() {
+        return atividadeId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setAtividadeId(@NotNull long atividadeId) {
+        this.atividadeId = atividadeId;
     }
 
     public String getNome() {

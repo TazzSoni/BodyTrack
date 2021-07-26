@@ -11,8 +11,8 @@ public class TreinoAtividades {
     @Embedded
     public Treino treino;
     @Relation(
-            parentColumn = "aitividadeId",
-            entityColumn = "treinoId",
+            parentColumn = "treinoId",
+            entityColumn = "atividadeId",
             associateBy = @Junction(TreinoAtividadeCrossRef.class)
     )
     public List<Atividade> atividades;

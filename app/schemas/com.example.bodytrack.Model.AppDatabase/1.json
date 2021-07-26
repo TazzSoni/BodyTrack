@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "26a30a1fec1a304622511fda0edbf004",
+    "identityHash": "cf9e78f5970e6fed6765f3d77b648aca",
     "entities": [
       {
         "tableName": "Pessoa",
@@ -108,11 +108,11 @@
       },
       {
         "tableName": "Atividade",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `nome` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`atividadeId` INTEGER NOT NULL, `nome` TEXT, PRIMARY KEY(`atividadeId`))",
         "fields": [
           {
-            "fieldPath": "id",
-            "columnName": "id",
+            "fieldPath": "atividadeId",
+            "columnName": "atividadeId",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -125,9 +125,9 @@
         ],
         "primaryKey": {
           "columnNames": [
-            "id"
+            "atividadeId"
           ],
-          "autoGenerate": true
+          "autoGenerate": false
         },
         "indices": [],
         "foreignKeys": []
@@ -178,12 +178,39 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "TreinoAtividadeCrossRef",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`atividadeId` INTEGER NOT NULL, `treinoId` INTEGER NOT NULL, PRIMARY KEY(`atividadeId`, `treinoId`))",
+        "fields": [
+          {
+            "fieldPath": "atividadeId",
+            "columnName": "atividadeId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "treinoId",
+            "columnName": "treinoId",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "atividadeId",
+            "treinoId"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '26a30a1fec1a304622511fda0edbf004')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'cf9e78f5970e6fed6765f3d77b648aca')"
     ]
   }
 }
