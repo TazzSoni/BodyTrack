@@ -29,6 +29,10 @@ public class Pessoa {
     @ColumnInfo (name = "altura")
     private double altura;
 
+<<<<<<< Updated upstream
+=======
+    private List<Treino> treinos = new ArrayList<>();
+>>>>>>> Stashed changes
 
     public Pessoa(String nome,String login, String senha, double peso, double altura) {
         this.nome = nome;
@@ -79,6 +83,21 @@ public class Pessoa {
         this.nome = nome;
     }
 
+<<<<<<< Updated upstream
+=======
+    public void addTreino(Treino treino){
+        this.treinos.add(treino);
+    }
+
+    public List<Treino> getTreinos() {
+        return treinos;
+    }
+
+    public void setTreinos(List<Treino> treinos) {
+        this.treinos = treinos;
+    }
+
+>>>>>>> Stashed changes
     @Override
     public String toString() {
         return "Pessoa{" +

@@ -2,7 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
+<<<<<<< Updated upstream
     "identityHash": "a4d8ad07b29c885c5a9e2ef94a6376ea",
+=======
+    "identityHash": "2f8334848a0296fc26c393fa9ae2f32a",
+>>>>>>> Stashed changes
     "entities": [
       {
         "tableName": "Pessoa",
@@ -50,11 +54,19 @@
       },
       {
         "tableName": "Serie",
+<<<<<<< Updated upstream
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`numSerie` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `repeticao` INTEGER NOT NULL, `peso` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "numSerie",
             "columnName": "numSerie",
+=======
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `repeticao` INTEGER NOT NULL, `peso` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+>>>>>>> Stashed changes
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -73,9 +85,15 @@
         ],
         "primaryKey": {
           "columnNames": [
+<<<<<<< Updated upstream
             "numSerie"
           ],
           "autoGenerate": true
+=======
+            "id"
+          ],
+          "autoGenerate": false
+>>>>>>> Stashed changes
         },
         "indices": [],
         "foreignKeys": []
@@ -84,7 +102,11 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+<<<<<<< Updated upstream
       "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a4d8ad07b29c885c5a9e2ef94a6376ea')"
+=======
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '2f8334848a0296fc26c393fa9ae2f32a')"
+>>>>>>> Stashed changes
     ]
   }
 }
