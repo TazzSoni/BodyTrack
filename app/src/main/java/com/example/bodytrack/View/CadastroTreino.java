@@ -1,6 +1,7 @@
 package com.example.bodytrack.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,7 +13,9 @@ import android.widget.TextView;
 
 import com.example.bodytrack.Control.CadastroAtvAdapter;
 import com.example.bodytrack.Control.CadastroTreinoAdapter;
+import com.example.bodytrack.Model.AppDatabase;
 import com.example.bodytrack.Model.Atividade;
+import com.example.bodytrack.Model.Treino;
 import com.example.bodytrack.R;
 
 import java.util.ArrayList;
@@ -29,10 +32,13 @@ public class CadastroTreino extends AppCompatActivity {
 
         Atividade atividade1 = new Atividade();
         atividade1.setNome("Atividade 1");
+        salvarAtividade(atividade1);
         Atividade atividade2 = new Atividade();
         atividade2.setNome("Atividade 2");
+        salvarAtividade(atividade2);
         Atividade atividade3 = new Atividade();
         atividade3.setNome("Atividade 3");
+        salvarAtividade(atividade3);
 
         atividades.add(atividade1);
         atividades.add(atividade2);
@@ -69,5 +75,16 @@ public class CadastroTreino extends AppCompatActivity {
                 startActivity(it);
             }
         });
+    }
+
+    public void salvarAtividade(Atividade atividade){
+        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
+                AppDatabase.class, "bodytrack-db").allowMainThreadQueries().build();
+        try {
+            db.atividadeDAO().insertAll(atividade);
+        }
+        catch (Exception e){
+//            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+        }
     }
 }

@@ -36,7 +36,6 @@ public class Cadastro extends AppCompatActivity implements View.OnClickListener 
                 AppDatabase.class, "bodytrack-db").allowMainThreadQueries().build();
         try{
             db.pessoaDao().insertAll(pessoa);
-            Toast.makeText(this,"Fez",Toast.LENGTH_LONG).show();
         }catch (Exception e){
             Toast.makeText(this,e.getMessage(),Toast.LENGTH_LONG).show();
         }

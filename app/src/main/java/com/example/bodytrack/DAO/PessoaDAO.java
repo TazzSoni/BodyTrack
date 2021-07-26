@@ -14,6 +14,9 @@ public interface PessoaDAO {
     @Query("SELECT * FROM pessoa")
     List<Pessoa> getAll();
 
+    @Query("SELECT * FROM pessoa where login = :login")
+    Pessoa getOne(String login);
+
     @Insert
     void insertAll(Pessoa... pessoas);
 

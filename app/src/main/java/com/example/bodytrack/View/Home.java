@@ -16,6 +16,7 @@ import com.example.bodytrack.Control.HomeAdapter;
 import com.example.bodytrack.Model.AppDatabase;
 import com.example.bodytrack.Model.Atividade;
 import com.example.bodytrack.Model.Pessoa;
+import com.example.bodytrack.Model.PessoaSecao;
 import com.example.bodytrack.Model.PessoaTreinoCrossRef;
 import com.example.bodytrack.Model.PessoaTreinos;
 import com.example.bodytrack.Model.Serie;
@@ -27,6 +28,24 @@ import java.util.List;
 
 public class Home extends AppCompatActivity  {
 
+
+    PessoaTreinoCrossRef pessoaTreinoCrossRef;
+    Pessoa pessoaSecao;
+
+
+    public void setPessoaSecao() {
+        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
+                AppDatabase.class, "bodytrack-db").allowMainThreadQueries().build();
+
+        String login = db.pessoaSecaoDAO().getAll().getLogin();
+        this.pessoaSecao = db.pessoaDao().getOne(login);
+        db.pessoaSecaoDAO().delete(db.pessoaSecaoDAO().getAll());
+    }
+
+    public Pessoa getPessoaSecao() {
+        return pessoaSecao;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,8 +54,10 @@ public class Home extends AppCompatActivity  {
         ImageView sair = findViewById(R.id.right_arrow);
         Button cadastrartreino = findViewById(R.id.btCadastrarTreino);
 
+        setPessoaSecao();
+
         Treino treino = new Treino();
-        treino.setTreinoId(5);
+        treino.setTreinoId(0);
         treino.setNome("Treino 1");
         salvarTreino(treino);
 
@@ -50,25 +71,9 @@ public class Home extends AppCompatActivity  {
         treino3.setNome("Treino 3");
         salvarTreino(treino3);
 
-        Pessoa pessoa = new Pessoa("Alberto", "alb", "123", 10, 10);
-
-        salvarPessoa(pessoa);
-
-        PessoaTreinoCrossRef pessoaTreinoCrossRef = new PessoaTreinoCrossRef();
-        pessoaTreinoCrossRef.setLogin(pessoa.getLogin());
-        pessoaTreinoCrossRef.setTreinoId(treino.getTreinoId());
-        salvarPessoaCrossRef(pessoaTreinoCrossRef);
-
-        pessoaTreinoCrossRef = new PessoaTreinoCrossRef();
-        pessoaTreinoCrossRef.setLogin(pessoa.getLogin());
-        pessoaTreinoCrossRef.setTreinoId(treino2.getTreinoId());
-        salvarPessoaCrossRef(pessoaTreinoCrossRef);
-
-        pessoaTreinoCrossRef = new PessoaTreinoCrossRef();
-        pessoaTreinoCrossRef.setLogin(pessoa.getLogin());
-        pessoaTreinoCrossRef.setTreinoId(treino3.getTreinoId());
-        salvarPessoaCrossRef(pessoaTreinoCrossRef);
-
+        salvarPessoaCrossRef(pessoaSecao.getLogin(), treino.getTreinoId());
+        salvarPessoaCrossRef(pessoaSecao.getLogin(), treino2.getTreinoId());
+        salvarPessoaCrossRef(pessoaSecao.getLogin(), treino3.getTreinoId());
 
         ListView list = findViewById(R.id.listHome);
         List<PessoaTreinos> pessoasTreinos = buscarPessoaTreinos();
@@ -123,9 +128,13 @@ public class Home extends AppCompatActivity  {
     }
 
 
-    public void salvarPessoaCrossRef(PessoaTreinoCrossRef pessoaTreinoCrossRef){
+    public void salvarPessoaCrossRef(String login, long treinoId){
         AppDatabase db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "bodytrack-db").allowMainThreadQueries().build();
+
+        pessoaTreinoCrossRef = new PessoaTreinoCrossRef();
+        pessoaTreinoCrossRef.setLogin(login);
+        pessoaTreinoCrossRef.setTreinoId(treinoId);
         try {
             db.pessoaCrossRefDAO().insertAll(pessoaTreinoCrossRef);
         }
@@ -135,9 +144,10 @@ public class Home extends AppCompatActivity  {
         }
     }
 
-    public List<PessoaTreinos> buscarPessoaTreinos(){
+    public List<PessoaTreinos> buscarPessoaTreinos() {
         AppDatabase db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "bodytrack-db").allowMainThreadQueries().build();
+
         return db.pessoaTreinosDAO().getPessoaTreinos();
     }
 

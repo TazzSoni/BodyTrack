@@ -12,6 +12,6 @@ import java.util.List;
 public interface AtividadeSerieDAO {
 
     @Transaction
-    @Query("SELECT * FROM Atovidade")
+    @Query("SELECT * FROM Atividade")
     public List<AtividadeSeries> getAtividadeSeries();
 }

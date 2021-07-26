@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "5f1199a78ffa5b7038cda5eaa4e13ddb",
+    "identityHash": "26a30a1fec1a304622511fda0edbf004",
     "entities": [
       {
         "tableName": "Pessoa",
@@ -107,6 +107,52 @@
         "foreignKeys": []
       },
       {
+        "tableName": "Atividade",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `nome` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nome",
+            "columnName": "nome",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "PessoaSecao",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`login` TEXT NOT NULL, PRIMARY KEY(`login`))",
+        "fields": [
+          {
+            "fieldPath": "login",
+            "columnName": "login",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "login"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
         "tableName": "PessoaTreinoCrossRef",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`login` TEXT NOT NULL, `treinoId` INTEGER NOT NULL, PRIMARY KEY(`login`, `treinoId`))",
         "fields": [
@@ -137,7 +183,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5f1199a78ffa5b7038cda5eaa4e13ddb')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '26a30a1fec1a304622511fda0edbf004')"
     ]
   }
 }
