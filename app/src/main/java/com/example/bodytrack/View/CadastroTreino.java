@@ -41,28 +41,32 @@ public class CadastroTreino extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_treino);
 
-
-        Atividade atividade1 = new Atividade();
-        atividade1.setAtividadeId(0);
-        atividade1.setNome("Atividade 1");
-        salvarAtividade(atividade1);
-        Atividade atividade2 = new Atividade();
-        atividade2.setAtividadeId(1);
-        atividade2.setNome("Atividade 2");
-        salvarAtividade(atividade2);
-        Atividade atividade3 = new Atividade();
-        atividade3.setAtividadeId(2);
-        atividade3.setNome("Atividade 3");
-        salvarAtividade(atividade3);
-
-        salvarTreinoCrossRef(treinoId, atividade1.getAtividadeId());
-        salvarTreinoCrossRef(treinoId, atividade2.getAtividadeId());
-        salvarTreinoCrossRef(treinoId, atividade3.getAtividadeId());
+//
+//        Atividade atividade1 = new Atividade();
+//        atividade1.setAtividadeId(0);
+//        atividade1.setNome("Atividade 1");
+//        salvarAtividade(atividade1);
+//        Atividade atividade2 = new Atividade();
+//        atividade2.setAtividadeId(1);
+//        atividade2.setNome("Atividade 2");
+//        salvarAtividade(atividade2);
+//        Atividade atividade3 = new Atividade();
+//        atividade3.setAtividadeId(2);
+//        atividade3.setNome("Atividade 3");
+//        salvarAtividade(atividade3);
+//
+//        salvarTreinoCrossRef(treinoId, atividade1.getAtividadeId());
+//        salvarTreinoCrossRef(treinoId, atividade2.getAtividadeId());
+//        salvarTreinoCrossRef(treinoId, atividade3.getAtividadeId());
 
         ListView list = findViewById(R.id.listCadastroTreino);
         List<TreinoAtividades> treinoAtividades = buscaListAtividades();
+        try{
         List<Atividade> atividades = treinoAtividades.get(0).atividades;
         list.setAdapter(new CadastroTreinoAdapter(this, atividades));
+        }catch(Exception e){
+
+        }
 
         ImageView voltar = findViewById(R.id.left_arrow);
         ImageView sair = findViewById(R.id.right_arrow);

@@ -38,9 +38,13 @@ public class Home extends AppCompatActivity  {
         AppDatabase db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "bodytrack-db").allowMainThreadQueries().build();
 
+        try{
         String login = db.pessoaSecaoDAO().getAll().getLogin();
         this.pessoaSecao = db.pessoaDao().getOne(login);
         db.pessoaSecaoDAO().delete(db.pessoaSecaoDAO().getAll());
+        }catch(Exception e){
+
+        }
     }
 
     public Pessoa getPessoaSecao() {
@@ -65,29 +69,37 @@ public class Home extends AppCompatActivity  {
 
         setPessoaSecao();
 
-        Treino treino = new Treino();
-        treino.setTreinoId(0);
-        treino.setNome("Treino 1");
-        salvarTreino(treino);
+//        Treino treino = new Treino();
+//        treino.setTreinoId(0);
+//        treino.setNome("Treino 1");
+//        salvarTreino(treino);
+//
+//        Treino treino2 = new Treino();
+//        treino2.setTreinoId(1);
+//        treino2.setNome("Treino 2");
+//        salvarTreino(treino2);
+//
+//        Treino treino3 = new Treino();
+//        treino3.setTreinoId(2);
+//        treino3.setNome("Treino 3");
+//        salvarTreino(treino3);
+//
+//        try{
+//        salvarPessoaCrossRef(pessoaSecao.getLogin(), treino.getTreinoId());
+//        salvarPessoaCrossRef(pessoaSecao.getLogin(), treino2.getTreinoId());
+//        salvarPessoaCrossRef(pessoaSecao.getLogin(), treino3.getTreinoId());
+//        }catch(Exception e){
+//
+//        }
 
-        Treino treino2 = new Treino();
-        treino2.setTreinoId(1);
-        treino2.setNome("Treino 2");
-        salvarTreino(treino2);
-
-        Treino treino3 = new Treino();
-        treino3.setTreinoId(2);
-        treino3.setNome("Treino 3");
-        salvarTreino(treino3);
-
-        salvarPessoaCrossRef(pessoaSecao.getLogin(), treino.getTreinoId());
-        salvarPessoaCrossRef(pessoaSecao.getLogin(), treino2.getTreinoId());
-        salvarPessoaCrossRef(pessoaSecao.getLogin(), treino3.getTreinoId());
-
+        try{
         ListView list = findViewById(R.id.listHome);
         List<PessoaTreinos> pessoasTreinos = buscarPessoaTreinos();
         List<Treino> treinos = pessoasTreinos.get(0).treinos;
         list.setAdapter(new HomeAdapter(this, treinos));
+        }catch(Exception e){
+
+        }
 
         sair.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,7 +123,11 @@ public class Home extends AppCompatActivity  {
                 Bundle bundle = new Bundle();
 
                 //Add your data to bundle
+                try{
                 bundle.putLong("data", pessoaTreinoCrossRef.getTreinoId());
+                }catch(Exception e){
+                    
+                }
 
                 //Add the bundle to the intent
                 it.putExtras(bundle);
