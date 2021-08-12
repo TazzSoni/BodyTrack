@@ -13,9 +13,9 @@ import org.jetbrains.annotations.NotNull;
 @Entity
 public class Serie {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @NotNull
-    private long serieId;
+    private int serieId;
 
     private int numSerie;
 
@@ -27,11 +27,11 @@ public class Serie {
     }
 
     @NotNull
-    public long getSerieId() {
+    public int getSerieId() {
         return serieId;
     }
 
-    public void setSerieId(@NotNull long serieId) {
+    public void setSerieId(@NotNull int serieId) {
         this.serieId = serieId;
     }
 

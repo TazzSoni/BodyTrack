@@ -4,7 +4,7 @@ import androidx.room.Entity;
 
 import org.jetbrains.annotations.NotNull;
 
-@Entity(primaryKeys = {"atividadeId", "serieId"})
+@Entity(primaryKeys = {"serieId", "atividadeId"})
 public class AtividadeSerieCrossRef {
 
     @NotNull
@@ -17,8 +17,8 @@ public class AtividadeSerieCrossRef {
     public long getAtividadeId() {
         return atividadeId;
     }
-    
-    public void setAtividadeId( @NotNull long atividadeId) {
+
+    public void setAtividadeId(@NotNull long atividadeId) {
         this.atividadeId = atividadeId;
     }
 

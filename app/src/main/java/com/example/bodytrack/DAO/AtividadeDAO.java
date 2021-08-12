@@ -20,7 +20,7 @@ public interface AtividadeDAO {
     Atividade getOne(long atividadeId);
 
     @Insert
-    void insertAll(Atividade atividade);
+    long insertAll(Atividade atividade);
 
     @Delete
     void delete(Atividade atividade);

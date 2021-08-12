@@ -6,9 +6,11 @@ import androidx.room.Room;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.bodytrack.Model.AppDatabase;
@@ -25,7 +27,8 @@ public class CadastroSerie extends AppCompatActivity {
         setContentView(R.layout.activity_cadastrar_serie);
 
         Button btSalvarSerie = findViewById(R.id.btSalvarSerie);
-
+        ImageView voltar = findViewById(R.id.left_arrow);
+        ImageView sair = findViewById(R.id.right_arrow);
 
         btSalvarSerie.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -34,32 +37,60 @@ public class CadastroSerie extends AppCompatActivity {
                 EditText numSerie = findViewById(R.id.taSerie);
                 EditText repeticao = findViewById(R.id.taRepeticoes);
 
-                System.out.println("Aqui");
-                System.out.println("Valor = "+peso.getText().toString());
-                Serie serie  = new Serie();
-                if(peso.getText().toString() == "" || numSerie.getText().toString() == ""|| repeticao.getText().toString() == ""){
+                if (
+                        TextUtils.isEmpty(peso.getText().toString()) ||
+                                TextUtils.isEmpty(numSerie.getText().toString()) ||
+                                TextUtils.isEmpty(repeticao.getText().toString())
+                ) {
                     Toast.makeText(context, "Preencha todos os Campos", Toast.LENGTH_LONG).show();
-                }else{
-                serie.setNumSerie(Integer.parseInt(numSerie.getText().toString()));
-                serie.setPeso(Integer.parseInt(peso.getText().toString()));
-                serie.setRepeticao(Integer.parseInt(repeticao.getText().toString()));
+                } else {
+                    Serie serie = new Serie();
+                    serie.setNumSerie(Integer.parseInt(numSerie.getText().toString()));
+                    serie.setPeso(Integer.parseInt(peso.getText().toString()));
+                    serie.setRepeticao(Integer.parseInt(repeticao.getText().toString()));
+                    Intent it = new Intent(CadastroSerie.this, CadastroAtividade.class);
+                    //Passar data para CadastroAtividade
+
+                    //Create the bundle
+                    Bundle bundle = new Bundle();
+
+                    //Add your data to bundle
+                    bundle.putInt("idSerieToPass", (int) (long) salvarSerie(serie));
+
+                    //Add the bundle to the intent
+                    it.putExtras(bundle);
+
+                    //Fire that second activity
+                    startActivity(it);
                 }
 
+                voltar.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent it = new Intent(CadastroSerie.this, CadastroAtividade.class);
+                        startActivity(it);
+                    }
+                });
+                sair.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent it = new Intent(CadastroSerie.this, CadastroAtividade.class);
+                        startActivity(it);
+                    }
+                });
 
-                Intent it = new Intent(CadastroSerie.this, CadastroAtividade.class);
-                startActivity(it);
             }
         });
     }
 
-    public void salvarSerie(Serie serie){
+    public long salvarSerie(Serie serie) {
         AppDatabase db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "bodytrack-db").allowMainThreadQueries().build();
         try {
-            db.serieDao().insertAll(serie);
-        }
-        catch (Exception e){
+            return db.serieDao().insertOne(serie);
+        } catch (Exception e) {
 //            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
+        return -1;
     }
 }

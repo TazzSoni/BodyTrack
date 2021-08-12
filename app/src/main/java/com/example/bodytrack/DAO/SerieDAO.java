@@ -1,10 +1,14 @@
 package com.example.bodytrack.DAO;
 
+import static androidx.room.OnConflictStrategy.IGNORE;
+import static androidx.room.OnConflictStrategy.REPLACE;
+
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
+import com.example.bodytrack.Model.Pessoa;
 import com.example.bodytrack.Model.Serie;
 
 import java.util.List;
@@ -14,8 +18,14 @@ public interface SerieDAO {
     @Query("SELECT * FROM serie")
     List<Serie> getAll();
 
-    @Insert
-    void insertAll(Serie ... series);
+    @Query("SELECT * FROM serie where serieId = :serieId")
+    Serie getOne(int serieId);
+
+    @Insert()
+    void insertAll(Serie... series);
+
+    @Insert(onConflict = REPLACE)
+    long insertOne(Serie serie);
 
     @Delete
     void delete(Serie serie);
