@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "cf9e78f5970e6fed6765f3d77b648aca",
+    "identityHash": "fe35901a71570ffcf9ceb39059ea9fe3",
     "entities": [
       {
         "tableName": "Pessoa",
@@ -50,8 +50,14 @@
       },
       {
         "tableName": "Serie",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`numSerie` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `repeticao` INTEGER NOT NULL, `peso` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`serieId` INTEGER NOT NULL, `numSerie` INTEGER NOT NULL, `repeticao` INTEGER NOT NULL, `peso` INTEGER NOT NULL, PRIMARY KEY(`serieId`))",
         "fields": [
+          {
+            "fieldPath": "serieId",
+            "columnName": "serieId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
           {
             "fieldPath": "numSerie",
             "columnName": "numSerie",
@@ -73,9 +79,9 @@
         ],
         "primaryKey": {
           "columnNames": [
-            "numSerie"
+            "serieId"
           ],
-          "autoGenerate": true
+          "autoGenerate": false
         },
         "indices": [],
         "foreignKeys": []
@@ -210,7 +216,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'cf9e78f5970e6fed6765f3d77b648aca')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'fe35901a71570ffcf9ceb39059ea9fe3')"
     ]
   }
 }

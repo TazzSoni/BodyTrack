@@ -8,11 +8,16 @@ import androidx.room.PrimaryKey;
 
 import static androidx.room.ForeignKey.CASCADE;
 
+import org.jetbrains.annotations.NotNull;
+
 @Entity
 public class Serie {
 
-    @PrimaryKey (autoGenerate = true)
-    private long numSerie;
+    @PrimaryKey
+    @NotNull
+    private long serieId;
+
+    private int numSerie;
 
     private int repeticao;
 
@@ -21,11 +26,20 @@ public class Serie {
     public Serie() {
     }
 
-    public long getNumSerie() {
+    @NotNull
+    public long getSerieId() {
+        return serieId;
+    }
+
+    public void setSerieId(@NotNull long serieId) {
+        this.serieId = serieId;
+    }
+
+    public int getNumSerie() {
         return numSerie;
     }
 
-    public void setNumSerie(long numSerie) {
+    public void setNumSerie(int numSerie) {
         this.numSerie = numSerie;
     }
 

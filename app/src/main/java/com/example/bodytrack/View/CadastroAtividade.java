@@ -1,15 +1,18 @@
 package com.example.bodytrack.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.example.bodytrack.Control.CadastroAtvAdapter;
+import com.example.bodytrack.Model.AppDatabase;
 import com.example.bodytrack.Model.Atividade;
 import com.example.bodytrack.Model.Serie;
 import com.example.bodytrack.R;
@@ -28,6 +31,9 @@ public class CadastroAtividade extends AppCompatActivity {
         setContentView(R.layout.activity_cadastro_atividade);
 
         context = this;
+
+
+
         List<Serie> series = new ArrayList<Serie>();
         Atividade atividade = new Atividade();
         atividade.setNome("Atividade 1");
@@ -49,10 +55,13 @@ public class CadastroAtividade extends AppCompatActivity {
         ImageView voltar = findViewById(R.id.left_arrow);
         ImageView sair = findViewById(R.id.right_arrow);
 
-        sair.setOnClickListener(new View.OnClickListener() {
+
+        Button btCadastarSerie = findViewById(R.id.btCadastarSerie);
+
+        btCadastarSerie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent it = new Intent(CadastroAtividade.this, MainActivity.class);
+                Intent it = new Intent(CadastroAtividade.this, CadastroSerie.class);
                 startActivity(it);
             }
         });
@@ -63,7 +72,16 @@ public class CadastroAtividade extends AppCompatActivity {
                 startActivity(it);
             }
         });
+        sair.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(CadastroAtividade.this, MainActivity.class);
+                startActivity(it);
+            }
+        });
 
     }
+
+
 
 }
