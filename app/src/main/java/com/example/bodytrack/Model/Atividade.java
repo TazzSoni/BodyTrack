@@ -13,7 +13,7 @@ import java.util.List;
 @Entity
 public class Atividade {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @NotNull
     private int atividadeId;
 

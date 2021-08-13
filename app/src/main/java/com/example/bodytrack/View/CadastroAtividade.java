@@ -147,7 +147,8 @@ public class CadastroAtividade extends AppCompatActivity {
             //Fire that second activity
             startActivity(it);
         } catch (Exception e) {
-            Toast.makeText(this, "Erro ao gravar série", Toast.LENGTH_LONG).show();
+            System.out.println(e.getMessage());
+            Toast.makeText(this, "Erro ao gravar Atividade", Toast.LENGTH_LONG).show();
         }
     }
 
