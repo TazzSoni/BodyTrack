@@ -13,17 +13,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.bodytrack.Control.CadastroAtvAdapter;
 import com.example.bodytrack.Control.CadastroTreinoAdapter;
 import com.example.bodytrack.Model.AppDatabase;
 import com.example.bodytrack.Model.Atividade;
-import com.example.bodytrack.Model.AtividadeSerieCrossRef;
-import com.example.bodytrack.Model.Pessoa;
-import com.example.bodytrack.Model.PessoaTreinoCrossRef;
-import com.example.bodytrack.Model.PessoaTreinos;
 import com.example.bodytrack.Model.Treino;
 import com.example.bodytrack.Model.TreinoAtividadeCrossRef;
-import com.example.bodytrack.Model.TreinoAtividades;
 import com.example.bodytrack.R;
 
 import java.util.ArrayList;
@@ -44,11 +38,6 @@ public class CadastroTreino extends AppCompatActivity {
         setContentView(R.layout.activity_cadastro_treino);
 
         list = findViewById(R.id.listCadastroTreino);
-        try {
-
-        } catch (Exception e) {
-
-        }
 
         ImageView voltar = findViewById(R.id.left_arrow);
         ImageView sair = findViewById(R.id.right_arrow);

@@ -16,4 +16,8 @@ public interface TreinoAtividadeDAO {
     @Query("SELECT * FROM Treino")
     public List<TreinoAtividades> getTreinoAtividades();
 
+    @Transaction
+    @Query("SELECT * FROM atividade where atividadeId = (select atividadeId from TreinoAtividadeCrossRef )")
+    public List<Atividade> getAtividadesTreino();
+
 }

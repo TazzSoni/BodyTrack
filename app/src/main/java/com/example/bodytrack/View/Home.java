@@ -1,29 +1,29 @@
 package com.example.bodytrack.View;
 
+import static android.provider.AlarmClock.EXTRA_MESSAGE;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.bodytrack.Control.CadastroAtvAdapter;
-import com.example.bodytrack.Control.CadastroTreinoAdapter;
 import com.example.bodytrack.Control.HomeAdapter;
 import com.example.bodytrack.Model.AppDatabase;
-import com.example.bodytrack.Model.Atividade;
 import com.example.bodytrack.Model.Pessoa;
-import com.example.bodytrack.Model.PessoaSecao;
 import com.example.bodytrack.Model.PessoaTreinoCrossRef;
 import com.example.bodytrack.Model.PessoaTreinos;
-import com.example.bodytrack.Model.Serie;
 import com.example.bodytrack.Model.Treino;
 import com.example.bodytrack.R;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +35,8 @@ public class Home extends AppCompatActivity {
     ListView list;
     List<Treino> treinos = new ArrayList<>();
     List<Integer> treinoss = new ArrayList<>();
+
+    Context context;
 
 
     public void setPessoaSecao() {
@@ -65,6 +67,9 @@ public class Home extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        context = this;
+
         setContentView(R.layout.activity_home);
         ImageView voltar = findViewById(R.id.left_arrow);
         ImageView sair = findViewById(R.id.right_arrow);
@@ -80,6 +85,18 @@ public class Home extends AppCompatActivity {
         } catch (Exception e) {
 
         }
+
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                    long id) {
+                Intent intent = new Intent(context, ViewTreino.class);
+                Treino t = (Treino) parent.getItemAtPosition(position);
+                String treinoId = String.valueOf(t.getTreinoId());
+                intent.putExtra("treinoId", treinoId);
+                startActivity(intent);
+            }
+        });
 
         sair.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -34,7 +34,7 @@ public class Treino {
 
     @Override
     public String toString() {
-        return "Treino{" +
+        return "ViewTreino{" +
                 "treinoId=" + treinoId +
                 ", nome='" + nome + '\'' +
                 '}';
