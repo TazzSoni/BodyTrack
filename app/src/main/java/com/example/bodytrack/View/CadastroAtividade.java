@@ -17,9 +17,7 @@ import com.example.bodytrack.Control.CadastroAtvAdapter;
 import com.example.bodytrack.Model.AppDatabase;
 import com.example.bodytrack.Model.Atividade;
 import com.example.bodytrack.Model.AtividadeSerieCrossRef;
-import com.example.bodytrack.Model.PessoaTreinos;
 import com.example.bodytrack.Model.Serie;
-import com.example.bodytrack.Model.TreinoAtividadeCrossRef;
 import com.example.bodytrack.R;
 
 import java.util.ArrayList;
@@ -30,6 +28,7 @@ public class CadastroAtividade extends AppCompatActivity {
 
     private Context context;
     List<Integer> seriess = new ArrayList<>();
+    int LAUNCH_SECOND_ACTIVITY = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,41 +37,28 @@ public class CadastroAtividade extends AppCompatActivity {
 
         context = this;
 
-        try {
-            List<Serie> series = new ArrayList<Serie>();
-            for (Integer s : seriess) {
-                series.add(buscaSeries(s));
-            }
-
-            ListView list = findViewById(R.id.listCadastroAtividade);
-            list.setAdapter(new CadastroAtvAdapter(this, series));
-
-        } catch (Exception e) {
-
-        }
 
         ImageView voltar = findViewById(R.id.left_arrow);
         ImageView sair = findViewById(R.id.right_arrow);
 
 
         Button btCadastarSerie = findViewById(R.id.btCadastarSerie);
-        Button btSalvarSerie = findViewById(R.id.btSalvarAtividade);
+        Button btSalvarAtividade = findViewById(R.id.btSalvarAtividade);
 
-        if (setBundle() > 0) {
-            seriess.add(setBundle());
-        }
 
         btCadastarSerie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent it = new Intent(CadastroAtividade.this, CadastroSerie.class);
-                startActivity(it);
+                startActivityForResult(it, LAUNCH_SECOND_ACTIVITY);
             }
         });
-        btSalvarSerie.setOnClickListener(new View.OnClickListener() {
+        btSalvarAtividade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 adicionarAtividadeSerieCrossRef();
+                seriess.clear();
             }
         });
         voltar.setOnClickListener(new View.OnClickListener() {
@@ -92,22 +78,30 @@ public class CadastroAtividade extends AppCompatActivity {
 
     }
 
-    public int setBundle() {
-        try {
-            Bundle bundle = getIntent().getExtras();
-            int l = bundle.getInt("idSerieToPass");
-            return l;
-        } catch (Exception e) {
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        if (requestCode == LAUNCH_SECOND_ACTIVITY) {
+            if (resultCode == CadastroSerie.RESULT_OK) {
+                seriess.add(Integer.parseInt(data.getStringExtra("resultSerie")));
+                try {
+                    List<Serie> series = new ArrayList<>();
+                    for (Integer s : seriess) {
+                        series.add(buscaSeries(s));
+                    }
+
+                    ListView list = findViewById(R.id.listCadastroAtividade);
+                    list.setAdapter(new CadastroAtvAdapter(this, series));
+
+                } catch (Exception e) {
+
+                }
+            }
+            if (resultCode == CadastroSerie.RESULT_CANCELED) {
+                // Write your code if there's no result
+            }
         }
-        return -1;
-    }
-
-    public Serie adicionaSerie(int id) {
-        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class, "bodytrack-db").allowMainThreadQueries().build();
-
-        return db.serieDao().getOne(id);
     }
 
     public Serie buscaSeries(int id) {
@@ -133,19 +127,13 @@ public class CadastroAtividade extends AppCompatActivity {
                 db.atividadeCrossRefDAO().insertAll(atividadeSerieCrossRef);
             }
             Intent it = new Intent(CadastroAtividade.this, CadastroTreino.class);
-            //Passar data para CadastroAtividade
 
-            //Create the bundle
-            Bundle bundle = new Bundle();
 
-            //Add your data to bundle
-            bundle.putInt("idAtividadeToPass", atividade.getAtividadeId());
-
-            //Add the bundle to the intent
-            it.putExtras(bundle);
-
-            //Fire that second activity
-            startActivity(it);
+            String id = String.valueOf(atividadeId);
+            Intent returnIntent = new Intent();
+            returnIntent.putExtra("resultAtividade", id);
+            setResult(CadastroSerie.RESULT_OK, returnIntent);
+            finish();
         } catch (Exception e) {
             System.out.println(e.getMessage());
             Toast.makeText(this, "Erro ao gravar Atividade", Toast.LENGTH_LONG).show();

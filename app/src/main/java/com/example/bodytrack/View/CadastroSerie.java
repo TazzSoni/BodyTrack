@@ -48,20 +48,12 @@ public class CadastroSerie extends AppCompatActivity {
                     serie.setNumSerie(Integer.parseInt(numSerie.getText().toString()));
                     serie.setPeso(Integer.parseInt(peso.getText().toString()));
                     serie.setRepeticao(Integer.parseInt(repeticao.getText().toString()));
-                    Intent it = new Intent(CadastroSerie.this, CadastroAtividade.class);
-                    //Passar data para CadastroAtividade
 
-                    //Create the bundle
-                    Bundle bundle = new Bundle();
-
-                    //Add your data to bundle
-                    bundle.putInt("idSerieToPass", (int) (long) salvarSerie(serie));
-
-                    //Add the bundle to the intent
-                    it.putExtras(bundle);
-
-                    //Fire that second activity
-                    startActivity(it);
+                    String id = String.valueOf(salvarSerie(serie));
+                    Intent returnIntent = new Intent();
+                    returnIntent.putExtra("resultSerie",id);
+                    setResult(CadastroSerie.RESULT_OK,returnIntent);
+                    finish();
                 }
 
                 voltar.setOnClickListener(new View.OnClickListener() {

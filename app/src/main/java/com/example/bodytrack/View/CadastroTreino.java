@@ -17,6 +17,8 @@ import com.example.bodytrack.Control.CadastroAtvAdapter;
 import com.example.bodytrack.Control.CadastroTreinoAdapter;
 import com.example.bodytrack.Model.AppDatabase;
 import com.example.bodytrack.Model.Atividade;
+import com.example.bodytrack.Model.AtividadeSerieCrossRef;
+import com.example.bodytrack.Model.Pessoa;
 import com.example.bodytrack.Model.PessoaTreinoCrossRef;
 import com.example.bodytrack.Model.PessoaTreinos;
 import com.example.bodytrack.Model.Treino;
@@ -30,41 +32,20 @@ import java.util.List;
 public class CadastroTreino extends AppCompatActivity {
 
     TreinoAtividadeCrossRef treinoAtividadeCrossRef;
+    List<Atividade> atividades = new ArrayList<>();
+    List<Integer> atividadess = new ArrayList<>();
+    ListView list;
 
-    //Get the bundle
-    // Bundle bundle = getIntent().getExtras();
-
-    //Extract the data…
-    long treinoId = 0;
+    int LAUNCH_SECOND_ACTIVITY = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_treino);
 
-//
-//        Atividade atividade1 = new Atividade();
-//        atividade1.setAtividadeId(0);
-//        atividade1.setNome("Atividade 1");
-//        salvarAtividade(atividade1);
-//        Atividade atividade2 = new Atividade();
-//        atividade2.setAtividadeId(1);
-//        atividade2.setNome("Atividade 2");
-//        salvarAtividade(atividade2);
-//        Atividade atividade3 = new Atividade();
-//        atividade3.setAtividadeId(2);
-//        atividade3.setNome("Atividade 3");
-//        salvarAtividade(atividade3);
-//
-//        salvarTreinoCrossRef(treinoId, atividade1.getAtividadeId());
-//        salvarTreinoCrossRef(treinoId, atividade2.getAtividadeId());
-//        salvarTreinoCrossRef(treinoId, atividade3.getAtividadeId());
-
-        ListView list = findViewById(R.id.listCadastroTreino);
-        List<TreinoAtividades> treinoAtividades = buscaListAtividades();
+        list = findViewById(R.id.listCadastroTreino);
         try {
-            List<Atividade> atividades = treinoAtividades.get(0).atividades;
-            list.setAdapter(new CadastroTreinoAdapter(this, atividades));
+
         } catch (Exception e) {
 
         }
@@ -73,6 +54,7 @@ public class CadastroTreino extends AppCompatActivity {
         ImageView sair = findViewById(R.id.right_arrow);
         TextView titulo = findViewById(R.id.title_toolbar);
         Button btCadastrarAtividade = findViewById(R.id.btCadastraAtividade);
+        Button btSalvarTreino = findViewById(R.id.btSalvarTreino);
         titulo.setText("Cadastro de treino");
 
 
@@ -94,16 +76,42 @@ public class CadastroTreino extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent it = new Intent(CadastroTreino.this, CadastroAtividade.class);
-                startActivity(it);
+                startActivityForResult(it, LAUNCH_SECOND_ACTIVITY);
+            }
+        });
+        btSalvarTreino.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(CadastroTreino.this, Home.class);
+                salvarTreino();
+                finish();
             }
         });
     }
 
-    private List<TreinoAtividades> buscaListAtividades() {
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == LAUNCH_SECOND_ACTIVITY) {
+            if (resultCode == CadastroSerie.RESULT_OK) {
+                atividadess.add(Integer.parseInt(data.getStringExtra("resultAtividade")));
+            }
+            if (resultCode == CadastroSerie.RESULT_CANCELED) {
+                // Write your code if there's no result
+            }
+            buscaListAtividades();
+            list.setAdapter(new CadastroTreinoAdapter(this, atividades));
+        }
+    }
+
+    private void buscaListAtividades() {
         AppDatabase db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "bodytrack-db").allowMainThreadQueries().build();
 
-        return db.treinoatividadesDAO().getTreinoAtividades();
+        for (Integer i : atividadess) {
+            atividades.add(db.atividadeDAO().getOne(new Long(i)));
+        }
     }
 
     private Atividade buscaListAtividade(int id) {
@@ -113,52 +121,34 @@ public class CadastroTreino extends AppCompatActivity {
         return db.atividadeDAO().getOne(id);
     }
 
+    public void salvarTreino() {
 
-    public void salvarAtividade(Atividade atividade) {
         AppDatabase db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "bodytrack-db").allowMainThreadQueries().build();
+
         try {
-            db.atividadeDAO().insertAll(atividade);
-        } catch (Exception e) {
-//            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
-        }
-    }
-
-    public void salvarTreinoCrossRef(long treinoId, long atividadeId) {
-        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class, "bodytrack-db").allowMainThreadQueries().build();
-
-        treinoAtividadeCrossRef = new TreinoAtividadeCrossRef();
-        treinoAtividadeCrossRef.setTreinoId(treinoId);
-        treinoAtividadeCrossRef.setAtividadeId(atividadeId);
-        try {
-            db.treinoCrossRefDAO().insertAll(treinoAtividadeCrossRef);
-        } catch (Exception e) {
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
-        }
-    }
-
-    public void salvarTreino(int atividadeId) {
-        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class, "bodytrack-db").allowMainThreadQueries().build();
-
-        if (setBundle() > 0) {
             Treino treino = new Treino();
-            EditText nome = findViewById(R.id.taNomeTreino);
+            EditText nome = (EditText) findViewById(R.id.taNomeTreino);
             treino.setNome(nome.getText().toString());
+            long treinoId = db.treinoDao().insertOne(treino);
 
-            salvarTreinoCrossRef(treino.getTreinoId(), setBundle());
-        }
-    }
+            for (Integer i : atividadess) {
+                TreinoAtividadeCrossRef treinoAtividadeCrossRef = new TreinoAtividadeCrossRef();
+                treinoAtividadeCrossRef.setAtividadeId(i);
+                treinoAtividadeCrossRef.setAtividadeId(treinoId);
+                db.treinoCrossRefDAO().insertAll(treinoAtividadeCrossRef);
+            }
+            Intent it = new Intent(CadastroTreino.this, Home.class);
 
-    public int setBundle() {
-        try {
-            Bundle bundle = getIntent().getExtras();
-            int l = bundle.getInt("idAtividadeToPass");
-            return l;
+            String id = String.valueOf(treinoId);
+            Intent returnIntent = new Intent();
+            returnIntent.putExtra("resultTreino", id);
+            setResult(CadastroSerie.RESULT_OK, returnIntent);
+            finish();
+
         } catch (Exception e) {
-
+            System.out.println(e.getMessage());
+            Toast.makeText(this, "Erro ao gravar Treino", Toast.LENGTH_LONG).show();
         }
-        return -1;
     }
 }

@@ -13,24 +13,27 @@ import java.util.List;
 public class Pessoa {
 
 
-    @ColumnInfo (name = "nome")
+    @ColumnInfo(name = "nome")
     private String nome;
 
     @PrimaryKey
     @NotNull
     private String login;
 
-    @ColumnInfo (name = "senha")
+    @ColumnInfo(name = "senha")
     private String senha;
 
-    @ColumnInfo (name = "peso")
+    @ColumnInfo(name = "peso")
     private double peso;
 
-    @ColumnInfo (name = "altura")
+    @ColumnInfo(name = "altura")
     private double altura;
 
+    public Pessoa() {
+        
+    }
 
-    public Pessoa(String nome,String login, String senha, double peso, double altura) {
+    public Pessoa(String nome, String login, String senha, double peso, double altura) {
         this.nome = nome;
         this.login = login;
         this.senha = senha;

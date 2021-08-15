@@ -25,7 +25,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.87" />
 
     <EditText
         android:id="@+id/taNomeTreino"
@@ -40,26 +40,39 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include"
         app:layout_constraintVertical_bias="0.026" />
+
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:padding="55dp"
+        android:layout_width="408dp"
+        android:layout_height="575dp"
         android:orientation="vertical"
-        tools:ignore="MissingConstraints">
+        android:padding="55dp"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="3dp">
 
         <ListView
             android:id="@+id/listCadastroTreino"
-            android:layout_marginTop="110dp"
-            android:padding="10dp"
             android:layout_width="wrap_content"
             android:layout_height="450dp"
+            android:layout_marginTop="110dp"
             android:animationCache="false"
             android:choiceMode="multipleChoice"
-            android:scrollingCache="false"
-            android:smoothScrollbar="true"
             android:divider="#00000000"
-            android:dividerHeight="10dp"/>
+            android:dividerHeight="10dp"
+            android:padding="10dp"
+            android:scrollingCache="false"
+            android:smoothScrollbar="true" />
 
     </RelativeLayout>
+
+    <Button
+        android:id="@+id/btSalvarTreino"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Salvar"
+        app:backgroundTint="@color/design_default_color_secondary_variant"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btCadastraAtividade" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

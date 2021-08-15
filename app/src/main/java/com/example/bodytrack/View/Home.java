@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.bodytrack.Control.CadastroAtvAdapter;
+import com.example.bodytrack.Control.CadastroTreinoAdapter;
 import com.example.bodytrack.Control.HomeAdapter;
 import com.example.bodytrack.Model.AppDatabase;
 import com.example.bodytrack.Model.Atividade;
@@ -26,23 +27,25 @@ import com.example.bodytrack.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Home extends AppCompatActivity  {
+public class Home extends AppCompatActivity {
 
 
     PessoaTreinoCrossRef pessoaTreinoCrossRef;
     Pessoa pessoaSecao;
-
+    ListView list;
+    List<Treino> treinos = new ArrayList<>();
+    List<Integer> treinoss = new ArrayList<>();
 
 
     public void setPessoaSecao() {
         AppDatabase db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "bodytrack-db").allowMainThreadQueries().build();
 
-        try{
-        String login = db.pessoaSecaoDAO().getAll().getLogin();
-        this.pessoaSecao = db.pessoaDao().getOne(login);
-        db.pessoaSecaoDAO().delete(db.pessoaSecaoDAO().getAll());
-        }catch(Exception e){
+        try {
+            String login = db.pessoaSecaoDAO().getAll().getLogin();
+            this.pessoaSecao = db.pessoaDao().getOne(login);
+            db.pessoaSecaoDAO().delete(db.pessoaSecaoDAO().getAll());
+        } catch (Exception e) {
 
         }
     }
@@ -69,35 +72,12 @@ public class Home extends AppCompatActivity  {
 
         setPessoaSecao();
 
-//        Treino treino = new Treino();
-//        treino.setTreinoId(0);
-//        treino.setNome("Treino 1");
-//        salvarTreino(treino);
-//
-//        Treino treino2 = new Treino();
-//        treino2.setTreinoId(1);
-//        treino2.setNome("Treino 2");
-//        salvarTreino(treino2);
-//
-//        Treino treino3 = new Treino();
-//        treino3.setTreinoId(2);
-//        treino3.setNome("Treino 3");
-//        salvarTreino(treino3);
-//
-//        try{
-//        salvarPessoaCrossRef(pessoaSecao.getLogin(), treino.getTreinoId());
-//        salvarPessoaCrossRef(pessoaSecao.getLogin(), treino2.getTreinoId());
-//        salvarPessoaCrossRef(pessoaSecao.getLogin(), treino3.getTreinoId());
-//        }catch(Exception e){
-//
-//        }
-
-        try{
-        ListView list = findViewById(R.id.listHome);
-        List<PessoaTreinos> pessoasTreinos = buscarPessoaTreinos();
-        List<Treino> treinos = pessoasTreinos.get(0).treinos;
-        list.setAdapter(new HomeAdapter(this, treinos));
-        }catch(Exception e){
+        try {
+            list = findViewById(R.id.listHome);
+            List<PessoaTreinos> pessoasTreinos = buscarPessoaTreinos();
+            List<Treino> treinos = pessoasTreinos.get(0).treinos;
+            list.setAdapter(new HomeAdapter(this, treinos));
+        } catch (Exception e) {
 
         }
 
@@ -106,6 +86,7 @@ public class Home extends AppCompatActivity  {
             public void onClick(View view) {
                 Intent it = new Intent(Home.this, MainActivity.class);
                 startActivity(it);
+                finish();
             }
         });
         voltar.setOnClickListener(new View.OnClickListener() {
@@ -113,55 +94,76 @@ public class Home extends AppCompatActivity  {
             public void onClick(View view) {
                 Intent it = new Intent(Home.this, MainActivity.class);
                 startActivity(it);
+                finish();
             }
         });
         cadastrartreino.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent it = new Intent(Home.this, CadastroTreino.class);
-                //Create the bundle
-                Bundle bundle = new Bundle();
 
-                //Add your data to bundle
-                try{
-                bundle.putLong("data", pessoaTreinoCrossRef.getTreinoId());
-                }catch(Exception e){
-                    
-                }
-
-                //Add the bundle to the intent
-                it.putExtras(bundle);
-                startActivity(it);
+                startActivityForResult(it, 1);
             }
         });
 
-
-
     }
-    public void salvarTreino(Treino treino){
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        int treinoId = Integer.parseInt(data.getStringExtra("resultTreino"));
+        if (requestCode == 1) {
+            if (resultCode == CadastroSerie.RESULT_OK) {
+                AppDatabase db = Room.databaseBuilder(getApplicationContext(),
+                        AppDatabase.class, "bodytrack-db").allowMainThreadQueries().build();
+
+                treinoss.add(treinoId);
+
+                PessoaTreinoCrossRef pessoaTreinoCrossRef = new PessoaTreinoCrossRef();
+                pessoaTreinoCrossRef.setTreinoId(treinoId);
+                pessoaTreinoCrossRef.setLogin(pessoaSecao.getLogin());
+                db.pessoaCrossRefDAO().insertAll(pessoaTreinoCrossRef);
+            }
+            if (resultCode == CadastroSerie.RESULT_CANCELED) {
+                // Write your code if there's no result
+            }
+            buscaListTreinos();
+            list.setAdapter(new HomeAdapter(this, treinos));
+        }
+    }
+
+    private void buscaListTreinos() {
+        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
+                AppDatabase.class, "bodytrack-db").allowMainThreadQueries().build();
+
+        for (Integer i : treinoss) {
+            treinos.add(db.treinoDao().getOne(new Long(i)));
+        }
+    }
+
+    public void salvarTreino(Treino treino) {
         AppDatabase db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "bodytrack-db").allowMainThreadQueries().build();
         try {
             db.treinoDao().insertAll(treino);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
 //            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 
-    public void salvarPessoa(Pessoa pessoa){
+    public void salvarPessoa(Pessoa pessoa) {
         AppDatabase db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "bodytrack-db").allowMainThreadQueries().build();
         try {
             db.pessoaDao().insertAll(pessoa);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
 //            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 
 
-    public void salvarPessoaCrossRef(String login, long treinoId){
+    public void salvarPessoaCrossRef(String login, long treinoId) {
         AppDatabase db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "bodytrack-db").allowMainThreadQueries().build();
 
@@ -170,9 +172,8 @@ public class Home extends AppCompatActivity  {
         pessoaTreinoCrossRef.setTreinoId(treinoId);
         try {
             db.pessoaCrossRefDAO().insertAll(pessoaTreinoCrossRef);
-        }
-        catch (Exception e){
-            System.out.println("Erro  = "+e);
+        } catch (Exception e) {
+            System.out.println("Erro  = " + e);
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }

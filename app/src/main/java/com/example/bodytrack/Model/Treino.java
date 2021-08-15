@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 @Entity
 public class Treino {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @NotNull
     private long treinoId;
 
