@@ -45,14 +45,14 @@ public class ViewTreino extends AppCompatActivity {
 
 
         //buscaListAtividades();
-        List<Atividade> treinoAtividades1 = buscaListAtividades1();
+        long id = Long.parseLong(getIntent().getStringExtra("treinoId"));
+        List<Atividade> treinoAtividades1 = buscaListAtividades1(id);
         try {
             // List<Atividade> atividades = treinoAtividades1.get(0).atividades;
             list.setAdapter(new ViewTreinoAdapter(this, treinoAtividades1));
         } catch (Exception e) {
 
         }
-        list.setAdapter(new CadastroTreinoAdapter(this, atividades));
 
         sair.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,11 +87,11 @@ public class ViewTreino extends AppCompatActivity {
 
     }
 
-    private List<Atividade> buscaListAtividades1() {
+    private List<Atividade> buscaListAtividades1(long treinoId) {
         AppDatabase db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "bodytrack-db").allowMainThreadQueries().build();
 
-        return db.treinoatividadesDAO().getAtividadesTreino();
+        return db.atividadeDAO().getAtividadesTreino(treinoId);
     }
 
 }

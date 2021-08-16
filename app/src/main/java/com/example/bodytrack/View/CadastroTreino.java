@@ -6,6 +6,7 @@ import androidx.room.Room;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -29,6 +30,7 @@ public class CadastroTreino extends AppCompatActivity {
     List<Atividade> atividades = new ArrayList<>();
     List<Integer> atividadess = new ArrayList<>();
     ListView list;
+    BaseAdapter adapter;
 
     int LAUNCH_SECOND_ACTIVITY = 1;
 
@@ -45,6 +47,13 @@ public class CadastroTreino extends AppCompatActivity {
         Button btCadastrarAtividade = findViewById(R.id.btCadastraAtividade);
         Button btSalvarTreino = findViewById(R.id.btSalvarTreino);
         titulo.setText("Cadastro de treino");
+
+        try {
+            adapter = new CadastroTreinoAdapter(this, atividades);
+            list.setAdapter(adapter);
+        } catch (Exception e) {
+
+        }
 
 
         sair.setOnClickListener(new View.OnClickListener() {
@@ -90,14 +99,15 @@ public class CadastroTreino extends AppCompatActivity {
                 // Write your code if there's no result
             }
             buscaListAtividades();
-            list.setAdapter(new CadastroTreinoAdapter(this, atividades));
+            adapter.notifyDataSetChanged();
+
         }
     }
 
     private void buscaListAtividades() {
         AppDatabase db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "bodytrack-db").allowMainThreadQueries().build();
-
+        atividades.clear();
         for (Integer i : atividadess) {
             atividades.add(db.atividadeDAO().getOne(new Long(i)));
         }
@@ -115,29 +125,24 @@ public class CadastroTreino extends AppCompatActivity {
         AppDatabase db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "bodytrack-db").allowMainThreadQueries().build();
 
-        try {
-            Treino treino = new Treino();
-            EditText nome = (EditText) findViewById(R.id.taNomeTreino);
-            treino.setNome(nome.getText().toString());
-            long treinoId = db.treinoDao().insertOne(treino);
+        Treino treino = new Treino();
+        EditText nome = (EditText) findViewById(R.id.taNomeTreino);
+        treino.setNome(nome.getText().toString());
+        long treinoId = db.treinoDao().insertOne(treino);
 
-            for (Integer i : atividadess) {
-                TreinoAtividadeCrossRef treinoAtividadeCrossRef = new TreinoAtividadeCrossRef();
-                treinoAtividadeCrossRef.setAtividadeId(i);
-                treinoAtividadeCrossRef.setAtividadeId(treinoId);
-                db.treinoCrossRefDAO().insertAll(treinoAtividadeCrossRef);
-            }
-            Intent it = new Intent(CadastroTreino.this, Home.class);
-
-            String id = String.valueOf(treinoId);
-            Intent returnIntent = new Intent();
-            returnIntent.putExtra("resultTreino", id);
-            setResult(CadastroSerie.RESULT_OK, returnIntent);
-            finish();
-
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            Toast.makeText(this, "Erro ao gravar Treino", Toast.LENGTH_LONG).show();
+        for (Integer i : atividadess) {
+            TreinoAtividadeCrossRef treinoAtividadeCrossRef = new TreinoAtividadeCrossRef();
+            treinoAtividadeCrossRef.setAtividadeId(i);
+            treinoAtividadeCrossRef.setTreinoId(treinoId);
+            db.treinoCrossRefDAO().insertAll(treinoAtividadeCrossRef);
         }
+        Intent it = new Intent(CadastroTreino.this, Home.class);
+
+        String id = String.valueOf(treinoId);
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("resultTreino", id);
+        setResult(CadastroSerie.RESULT_OK, returnIntent);
+        finish();
+
     }
 }

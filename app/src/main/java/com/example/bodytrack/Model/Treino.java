@@ -10,16 +10,16 @@ public class Treino {
 
     @PrimaryKey(autoGenerate = true)
     @NotNull
-    private long treinoId;
+    private int treinoId;
 
     private String nome;
 
     @NotNull
-    public long getTreinoId() {
+    public int getTreinoId() {
         return treinoId;
     }
 
-    public void setTreinoId(@NotNull long treinoId) {
+    public void setTreinoId(@NotNull int treinoId) {
         this.treinoId = treinoId;
     }
 

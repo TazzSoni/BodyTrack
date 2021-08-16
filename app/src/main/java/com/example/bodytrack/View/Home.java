@@ -76,15 +76,8 @@ public class Home extends AppCompatActivity {
         Button cadastrartreino = findViewById(R.id.btCadastrarTreino);
 
         setPessoaSecao();
-
-        try {
-            list = findViewById(R.id.listHome);
-            List<PessoaTreinos> pessoasTreinos = buscarPessoaTreinos();
-            List<Treino> treinos = pessoasTreinos.get(0).treinos;
-            list.setAdapter(new HomeAdapter(this, treinos));
-        } catch (Exception e) {
-
-        }
+        list = findViewById(R.id.listHome);
+        buscaListTreinos();
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -146,16 +139,19 @@ public class Home extends AppCompatActivity {
                 // Write your code if there's no result
             }
             buscaListTreinos();
-            list.setAdapter(new HomeAdapter(this, treinos));
         }
     }
 
     private void buscaListTreinos() {
         AppDatabase db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "bodytrack-db").allowMainThreadQueries().build();
+        try {
 
-        for (Integer i : treinoss) {
-            treinos.add(db.treinoDao().getOne(new Long(i)));
+            List<PessoaTreinos> pessoasTreinos = buscarPessoaTreinos();
+            List<Treino> treinos = pessoasTreinos.get(0).treinos;
+            list.setAdapter(new HomeAdapter(this, treinos));
+        } catch (Exception e) {
+
         }
     }
 

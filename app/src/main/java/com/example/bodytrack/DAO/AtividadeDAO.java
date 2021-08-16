@@ -16,6 +16,9 @@ public interface AtividadeDAO {
     @Query("SELECT * FROM atividade")
     List<Atividade> getAll();
 
+    @Query("SELECT * FROM atividade where atividadeId in (SELECT atividadeId FROM treinoatividadecrossref where treinoId = :treinoId)")
+    List<Atividade> getAtividadesTreino(long treinoId);
+
     @Query("SELECT * FROM atividade where atividadeId = :atividadeId")
     Atividade getOne(long atividadeId);
 
