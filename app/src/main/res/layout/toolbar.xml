@@ -8,14 +8,15 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="50dp"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/left_arrow"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:src="@drawable/ic_baseline_arrow_left_24"/>
+        android:padding="50dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/left_arrow"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:src="@drawable/ic_baseline_arrow_left_24" />
 
     <TextView
         android:id="@+id/title_toolbar"
@@ -25,9 +26,11 @@
         android:layout_toEndOf="@+id/left_arrow"
         android:layout_toRightOf="@+id/left_arrow"
         android:text="Body track"
+        android:layout_marginLeft="30dp"
         android:textColor="@color/white"
         android:textSize="20sp"
         tools:ignore="UnknownId" />
+
     <ImageView
         android:id="@+id/right_arrow"
         android:layout_width="wrap_content"

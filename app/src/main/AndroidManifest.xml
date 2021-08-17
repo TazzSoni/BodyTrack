@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BodyTrack">
         <activity
+            android:name=".View.ViewAtividades"
+            android:exported="true" />
+        <activity
             android:name=".View.ViewTreino"
             android:exported="true" />
         <activity

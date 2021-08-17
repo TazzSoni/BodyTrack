@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.bodytrack.Model.AppDatabase;
@@ -50,11 +51,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public void logar(String login, String senha){
+    public void logar(String login, String senha) {
         AppDatabase db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "bodytrack-db").allowMainThreadQueries().build();
         List<Pessoa> pessoas = db.pessoaDao().getAll();
-        if(pessoas.size()>0) {
+        if (pessoas.size() > 0) {
             for (Pessoa p : pessoas) {
                 System.out.println(p.toString());
                 if (p.getLogin().equals(login)) {
@@ -62,13 +63,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         Intent home = new Intent(MainActivity.this, Home.class);
                         setPessoaSecao(p.getLogin());
                         startActivity(home);
-                    }else{
-            Toast.makeText(this,"Senha incorreta", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(this, "Senha incorreta", Toast.LENGTH_LONG).show();
                     }
                 }
             }
-        }else{
-            Toast.makeText(this,"Sem pessoas cadastradas", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this, "Sem pessoas cadastradas", Toast.LENGTH_LONG).show();
         }
 
 
@@ -79,8 +80,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 AppDatabase.class, "bodytrack-db").allowMainThreadQueries().build();
         PessoaSecao pessoaSecao = new PessoaSecao();
         pessoaSecao.setLogin(login);
-        if(db.pessoaSecaoDAO().getList().size()>0){
-        db.pessoaSecaoDAO().delete(db.pessoaSecaoDAO().getAll());
+        if (db.pessoaSecaoDAO().getList().size() > 0) {
+            db.pessoaSecaoDAO().delete(db.pessoaSecaoDAO().getAll());
         }
         db.pessoaSecaoDAO().insertAll(pessoaSecao);
     }

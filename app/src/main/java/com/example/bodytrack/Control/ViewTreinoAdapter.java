@@ -1,6 +1,7 @@
 package com.example.bodytrack.Control;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -39,9 +40,10 @@ public class ViewTreinoAdapter extends BaseAdapter {
         TextView texto = new TextView(context);
         Atividade atividade = atividades.get(position);
         texto.setText(
-                atividade.getNome()
+                "-> " + atividade.getNome()
         );
         texto.setTextSize(16);
+        texto.setTypeface(null, Typeface.BOLD);
         return texto;
     }
 }

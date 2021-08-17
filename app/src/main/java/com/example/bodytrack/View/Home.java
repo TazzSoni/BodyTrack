@@ -1,6 +1,5 @@
 package com.example.bodytrack.View;
 
-import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
@@ -23,7 +22,6 @@ import com.example.bodytrack.Model.PessoaTreinos;
 import com.example.bodytrack.Model.Treino;
 import com.example.bodytrack.R;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -87,6 +85,7 @@ public class Home extends AppCompatActivity {
                 Treino t = (Treino) parent.getItemAtPosition(position);
                 String treinoId = String.valueOf(t.getTreinoId());
                 intent.putExtra("treinoId", treinoId);
+                intent.putExtra("treinoNome", t.getNome());
                 startActivity(intent);
             }
         });
@@ -152,42 +151,6 @@ public class Home extends AppCompatActivity {
             list.setAdapter(new HomeAdapter(this, treinos));
         } catch (Exception e) {
 
-        }
-    }
-
-    public void salvarTreino(Treino treino) {
-        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class, "bodytrack-db").allowMainThreadQueries().build();
-        try {
-            db.treinoDao().insertAll(treino);
-        } catch (Exception e) {
-//            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
-        }
-    }
-
-    public void salvarPessoa(Pessoa pessoa) {
-        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class, "bodytrack-db").allowMainThreadQueries().build();
-        try {
-            db.pessoaDao().insertAll(pessoa);
-        } catch (Exception e) {
-//            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
-        }
-    }
-
-
-    public void salvarPessoaCrossRef(String login, long treinoId) {
-        AppDatabase db = Room.databaseBuilder(getApplicationContext(),
-                AppDatabase.class, "bodytrack-db").allowMainThreadQueries().build();
-
-        pessoaTreinoCrossRef = new PessoaTreinoCrossRef();
-        pessoaTreinoCrossRef.setLogin(login);
-        pessoaTreinoCrossRef.setTreinoId(treinoId);
-        try {
-            db.pessoaCrossRefDAO().insertAll(pessoaTreinoCrossRef);
-        } catch (Exception e) {
-            System.out.println("Erro  = " + e);
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 

@@ -8,6 +8,7 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
+import com.example.bodytrack.Model.Atividade;
 import com.example.bodytrack.Model.Pessoa;
 import com.example.bodytrack.Model.Serie;
 
@@ -20,6 +21,9 @@ public interface SerieDAO {
 
     @Query("SELECT * FROM serie where serieId = :serieId")
     Serie getOne(int serieId);
+
+    @Query("SELECT * FROM serie where serieId in (SELECT serieId FROM atividadeseriecrossref where atividadeId = :atividadeId)")
+    List<Serie> getSeriesAtividade(long atividadeId);
 
     @Insert()
     void insertAll(Serie... series);

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#C9F8F8"
     tools:context=".View.CadastroAtividade">
 
     <include
@@ -26,17 +27,12 @@
         android:id="@+id/btCadastarSerie"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="157dp"
-        android:layout_marginLeft="157dp"
         android:layout_marginTop="500dp"
-        android:layout_marginEnd="160dp"
-        android:layout_marginRight="160dp"
         android:layout_marginBottom="14dp"
         android:text="Cadastrar Série"
         app:backgroundTint="@color/design_default_color_secondary_variant"
         app:layout_constraintBottom_toTopOf="@+id/btSalvarAtividade"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.481"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include"
         app:layout_constraintVertical_bias="0.89" />

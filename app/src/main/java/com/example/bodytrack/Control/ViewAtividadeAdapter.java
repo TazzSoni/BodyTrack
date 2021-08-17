@@ -1,37 +1,34 @@
 package com.example.bodytrack.Control;
 
 import android.content.Context;
-import android.graphics.Color;
+import android.graphics.Typeface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.example.bodytrack.Model.PessoaTreinos;
+import com.example.bodytrack.Model.Atividade;
 import com.example.bodytrack.Model.Serie;
-import com.example.bodytrack.Model.Treino;
-import com.example.bodytrack.View.Home;
 
 import java.util.List;
 
-public class HomeAdapter extends BaseAdapter {
-
+public class ViewAtividadeAdapter extends BaseAdapter {
     private Context context;
-    private List<Treino> treinos;
+    private List<Serie> series;
 
-    public HomeAdapter(Context context, List<Treino> treinos) {
+    public ViewAtividadeAdapter(Context context, List<Serie> series) {
         this.context = context;
-        this.treinos = treinos;
+        this.series = series;
     }
 
     @Override
     public int getCount() {
-        return this.treinos.size();
+        return this.series.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return treinos.get(position);
+        return series.get(position);
     }
 
     @Override
@@ -42,10 +39,9 @@ public class HomeAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
         TextView texto = new TextView(context);
-        texto.setTextColor(Color.WHITE);
-        Treino treino = treinos.get(position);
+        Serie serieAtual = series.get(position);
         texto.setText(
-                "-> " + treino.getNome()
+                serieAtual.getNumSerie() + "                     " + serieAtual.getPeso() + "                       " + serieAtual.getRepeticao()
         );
         texto.setTextSize(16);
         return texto;

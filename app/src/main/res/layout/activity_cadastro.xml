@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#C9F8F8"
     tools:context=".View.Cadastro">
 
     <Button
@@ -39,7 +40,7 @@
         android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="Senha"
-        android:inputType="textPersonName"
+        android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.487"
@@ -67,7 +68,7 @@
         android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="Confirma Senha"
-        android:inputType="textPersonName"
+        android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.487"
