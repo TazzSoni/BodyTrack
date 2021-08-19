@@ -8,6 +8,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Entity
 public class Pessoa {
@@ -30,7 +32,7 @@ public class Pessoa {
     private double altura;
 
     public Pessoa() {
-        
+
     }
 
     public Pessoa(String nome, String login, String senha, double peso, double altura) {
@@ -80,6 +82,39 @@ public class Pessoa {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public boolean verificarPeso() {
+
+        if (this.getPeso() < 300) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean verificarAltura() {
+
+        if (this.getAltura() < 2.30) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean verificaNome() {
+
+        Pattern p = Pattern.compile("[^A-Za-z0-9]");
+        Matcher m = p.matcher(this.getNome());
+        // boolean b = m.matches();
+        boolean b = m.find();
+        if (b == true) {
+            //System.out.println("There is a special character in my string ");
+            return false;
+        } else {
+            //System.out.println("There is no special char.");
+            return true;
+        }
     }
 
     @Override

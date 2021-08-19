@@ -94,7 +94,7 @@ public class TesteGeralPersistencia {
     }
 
     @Test
-    public void writeUserAndReadInList() throws Exception {
+    public void buscarPessoa() throws Exception {
 
 
         List<Pessoa> pessoas = db.pessoaDao().getAll();
