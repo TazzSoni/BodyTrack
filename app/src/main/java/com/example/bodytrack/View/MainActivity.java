@@ -57,7 +57,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         List<Pessoa> pessoas = db.pessoaDao().getAll();
         if (pessoas.size() > 0) {
             for (Pessoa p : pessoas) {
-                System.out.println(p.toString());
                 if (p.getLogin().equals(login)) {
                     if (p.getSenha().equals(senha)) {
                         Intent home = new Intent(MainActivity.this, Home.class);

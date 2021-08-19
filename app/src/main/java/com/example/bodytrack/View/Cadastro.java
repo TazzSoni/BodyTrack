@@ -19,6 +19,7 @@ public class Cadastro extends AppCompatActivity implements View.OnClickListener 
 
     Toast toast;
     Pessoa pessoa;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,13 +32,15 @@ public class Cadastro extends AppCompatActivity implements View.OnClickListener 
 
     }
 
-    public void salvarPessoa(Pessoa pessoa){
+    public boolean salvarPessoa(Pessoa pessoa) {
         AppDatabase db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "bodytrack-db").allowMainThreadQueries().build();
-        try{
+        try {
             db.pessoaDao().insertAll(pessoa);
-        }catch (Exception e){
-            Toast.makeText(this,e.getMessage(),Toast.LENGTH_LONG).show();
+            return true;
+        } catch (Exception e) {
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+            return false;
         }
     }
 
@@ -55,13 +58,13 @@ public class Cadastro extends AppCompatActivity implements View.OnClickListener 
                 EditText confirmaSenha = (EditText) findViewById(R.id.taConfirmarSenha);
                 EditText peso = (EditText) findViewById(R.id.taPeso);
                 EditText altura = (EditText) findViewById(R.id.taAltura);
-                if(TextUtils.isEmpty(senha.getText().toString())){
+                if (TextUtils.isEmpty(senha.getText().toString())) {
                     toast = Toast.makeText(this, "Senha não confere!!", Toast.LENGTH_SHORT);
                     toast.show();
-                }else if(TextUtils.isEmpty(confirmaSenha.getText().toString())){
+                } else if (TextUtils.isEmpty(confirmaSenha.getText().toString())) {
                     toast = Toast.makeText(this, "Senha não confere!!", Toast.LENGTH_SHORT);
                     toast.show();
-                }else if(senha.getText().toString().equals(confirmaSenha.getText().toString())){
+                } else if (senha.getText().toString().equals(confirmaSenha.getText().toString())) {
                     pessoa = new Pessoa(
                             nome.getText().toString(),
                             login.getText().toString(),
@@ -72,7 +75,7 @@ public class Cadastro extends AppCompatActivity implements View.OnClickListener 
                     salvarPessoa(pessoa);
                     startActivity(it);
 
-                }else{
+                } else {
                     toast = Toast.makeText(this, "Senha não confere!!", Toast.LENGTH_SHORT);
                     toast.show();
                 }

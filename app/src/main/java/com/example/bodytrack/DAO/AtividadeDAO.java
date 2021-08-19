@@ -1,5 +1,7 @@
 package com.example.bodytrack.DAO;
 
+import static androidx.room.OnConflictStrategy.REPLACE;
+
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -24,6 +26,9 @@ public interface AtividadeDAO {
 
     @Insert
     long insertAll(Atividade atividade);
+
+    @Insert()
+    long insertOne(Atividade atividade);
 
     @Delete
     void delete(Atividade atividade);
