@@ -42,6 +42,7 @@ public class ViewAtividadeAdapter extends BaseAdapter {
         Serie serieAtual = series.get(position);
         texto.setText(
                 serieAtual.getNumSerie() + "                     " + serieAtual.getPeso() + "                       " + serieAtual.getRepeticao()
+                        + "                 " + serieAtual.getChecked()
         );
         texto.setTextSize(16);
         return texto;

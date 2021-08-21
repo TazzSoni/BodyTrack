@@ -7,6 +7,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.example.bodytrack.Model.Atividade;
 import com.example.bodytrack.Model.Pessoa;
@@ -30,6 +31,9 @@ public interface SerieDAO {
 
     @Insert(onConflict = REPLACE)
     long insertOne(Serie serie);
+
+    @Update
+    void update(Serie serie);
 
     @Delete
     void delete(Serie serie);

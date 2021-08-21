@@ -4,14 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Repositorios/BodyTrack/app/src/main/res/layout/activity_cadastrar_serie.xml" value="0.36666666666666664" />
-        <entry key="..\:/Repositorios/BodyTrack/app/src/main/res/layout/activity_cadastro.xml" value="0.25" />
+        <entry key="..\:/Repositorios/BodyTrack/app/src/main/res/layout/activity_cadastro.xml" value="0.1671195652173913" />
         <entry key="..\:/Repositorios/BodyTrack/app/src/main/res/layout/activity_cadastro_atividade.xml" value="0.20707070707070707" />
         <entry key="..\:/Repositorios/BodyTrack/app/src/main/res/layout/activity_cadastro_treino.xml" value="0.22" />
-        <entry key="..\:/Repositorios/BodyTrack/app/src/main/res/layout/activity_home.xml" value="0.20520833333333333" />
-        <entry key="..\:/Repositorios/BodyTrack/app/src/main/res/layout/activity_main.xml" value="0.2957427536231884" />
-        <entry key="..\:/Repositorios/BodyTrack/app/src/main/res/layout/activity_treino.xml" value="0.25" />
-        <entry key="..\:/Repositorios/BodyTrack/app/src/main/res/layout/activity_view_atividades.xml" value="0.33" />
-        <entry key="..\:/Repositorios/BodyTrack/app/src/main/res/layout/toolbar.xml" value="0.2957427536231884" />
+        <entry key="..\:/Repositorios/BodyTrack/app/src/main/res/layout/activity_treino.xml" value="0.33" />
+        <entry key="..\:/Repositorios/BodyTrack/app/src/main/res/layout/activity_view_atividades.xml" value="0.36666666666666664" />
       </map>
     </option>
   </component>

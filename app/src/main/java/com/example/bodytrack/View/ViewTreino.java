@@ -8,14 +8,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.bodytrack.Control.ViewTreinoAdapter;
 import com.example.bodytrack.Model.AppDatabase;
 import com.example.bodytrack.Model.Atividade;
 import com.example.bodytrack.Model.PessoaTreinoCrossRef;
+import com.example.bodytrack.Model.Serie;
 import com.example.bodytrack.Model.Treino;
 import com.example.bodytrack.R;
 
@@ -30,6 +33,7 @@ public class ViewTreino extends AppCompatActivity {
     ListView list;
     List<Atividade> atividades = new ArrayList<>();
     long id;
+    String atividadeId;
 
     Context context;
 
@@ -41,6 +45,8 @@ public class ViewTreino extends AppCompatActivity {
         setContentView(R.layout.activity_treino);
 
         list = findViewById(R.id.listViewTreino);
+
+        Button reiniciarTreino = findViewById(R.id.btReiniciarTreino);
 
         ImageView voltar = findViewById(R.id.left_arrow);
         ImageView sair = findViewById(R.id.right_arrow);
@@ -62,13 +68,39 @@ public class ViewTreino extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long iId) {
-                Intent intent = new Intent(context, ViewAtividades.class);
+                Intent intent = new Intent(ViewTreino.this, ViewAtividades.class);
                 Atividade a = (Atividade) parent.getItemAtPosition(position);
-                String atividadeId = String.valueOf(a.getAtividadeId());
+                atividadeId = String.valueOf(a.getAtividadeId());
+
                 intent.putExtra("viewAtividadeId", atividadeId);
                 intent.putExtra("viewAtividadeNome", a.getNome());
                 intent.putExtra("viewAtividadeIdTreino", id);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
+            }
+        });
+
+        reiniciarTreino.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                AppDatabase db = Room.databaseBuilder(getApplicationContext(),
+                        AppDatabase.class, "bodytrack-db").allowMainThreadQueries().build();
+
+                try {
+                    for (Atividade a : atividades) {
+
+                        List<Serie> series = db.serieDao().getSeriesAtividade(Long.valueOf(a.getAtividadeId()));
+
+                        for (Serie s : series) {
+                            s.setChecked("-");
+                            db.serieDao().update(s);
+                        }
+                    }
+                    Toast.makeText(context, "Treino Reinicado!!", Toast.LENGTH_SHORT).show();
+
+                } catch (Exception e) {
+
+                }
             }
         });
 
@@ -93,24 +125,11 @@ public class ViewTreino extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        try {
-            long id = Long.parseLong(getIntent().getStringExtra("treinoIdVolta"));
-            List<Atividade> treinoAtividades1 = buscaListAtividades(id);
-            list.setAdapter(new ViewTreinoAdapter(this, treinoAtividades1));
-        } catch (Exception e) {
-
-        }
     }
 
     private List<Atividade> buscaListAtividades(long treinoId) {
         AppDatabase db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "bodytrack-db").allowMainThreadQueries().build();
-        try {
-
-        } catch (Exception e) {
-
-        }
-
         return db.atividadeDAO().getAtividadesTreino(treinoId);
     }
 

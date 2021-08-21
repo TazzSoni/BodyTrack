@@ -14,9 +14,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,11 +52,38 @@ public class ViewAtividades extends AppCompatActivity {
         String nome = "Atividade - " + getIntent().getStringExtra("viewAtividadeNome");
         List<Serie> atividadesSeries = buscaListAtividades(id);
         tituloAtividade.setText(nome.toUpperCase(Locale.ROOT));
+        ViewAtividadeAdapter adapter = new ViewAtividadeAdapter(this, atividadesSeries);
         try {
-            list.setAdapter(new ViewAtividadeAdapter(this, atividadesSeries));
+            list.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
         } catch (Exception e) {
 
         }
+
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Serie serie = (Serie) adapter.getItem(position);
+
+                String checked = serie.getChecked();
+
+                String changedName = "V";
+                ((Serie) adapter.getItem(position)).setChecked(changedName);
+                AppDatabase db = Room.databaseBuilder(getApplicationContext(),
+                        AppDatabase.class, "bodytrack-db").allowMainThreadQueries().build();
+                try {
+                    db.serieDao().update(serie);
+                } catch (Exception e) {
+
+                }
+                adapter.notifyDataSetChanged();
+
+
+            }
+
+        });
 
         sair.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,9 +96,9 @@ public class ViewAtividades extends AppCompatActivity {
         voltar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, ViewTreino.class);
+                Intent intent = new Intent();
                 intent.putExtra("treinoIdVolta", treinoId);
-                startActivity(intent);
+                setResult(ViewAtividades.RESULT_OK, intent);
                 finish();
             }
         });

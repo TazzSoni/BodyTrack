@@ -23,6 +23,8 @@ public class Serie {
 
     private int peso;
 
+    private String checked = "-";
+
     public Serie() {
     }
 
@@ -57,5 +59,13 @@ public class Serie {
 
     public void setPeso(int peso) {
         this.peso = peso;
+    }
+
+    public String getChecked() {
+        return checked;
+    }
+
+    public void setChecked(String checked) {
+        this.checked = checked;
     }
 }

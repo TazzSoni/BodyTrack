@@ -44,7 +44,6 @@ public class Home extends AppCompatActivity {
         try {
             String login = db.pessoaSecaoDAO().getAll().getLogin();
             this.pessoaSecao = db.pessoaDao().getOne(login);
-            db.pessoaSecaoDAO().delete(db.pessoaSecaoDAO().getAll());
         } catch (Exception e) {
 
         }
@@ -95,6 +94,16 @@ public class Home extends AppCompatActivity {
             public void onClick(View view) {
                 Intent it = new Intent(Home.this, MainActivity.class);
                 startActivity(it);
+
+                AppDatabase db = Room.databaseBuilder(getApplicationContext(),
+                        AppDatabase.class, "bodytrack-db").allowMainThreadQueries().build();
+
+                try {
+
+                    db.pessoaSecaoDAO().delete(db.pessoaSecaoDAO().getAll());
+                } catch (Exception e) {
+                    
+                }
                 finish();
             }
         });
@@ -131,7 +140,7 @@ public class Home extends AppCompatActivity {
 
                 PessoaTreinoCrossRef pessoaTreinoCrossRef = new PessoaTreinoCrossRef();
                 pessoaTreinoCrossRef.setTreinoId(treinoId);
-                pessoaTreinoCrossRef.setLogin(pessoaSecao.getLogin());
+                pessoaTreinoCrossRef.setLogin(db.pessoaSecaoDAO().getAll().getLogin());
                 db.pessoaCrossRefDAO().insertAll(pessoaTreinoCrossRef);
             }
             if (resultCode == CadastroSerie.RESULT_CANCELED) {

@@ -141,7 +141,7 @@ public class CadastroTreino extends AppCompatActivity {
         String id = String.valueOf(treinoId);
         Intent returnIntent = new Intent();
         returnIntent.putExtra("resultTreino", id);
-        setResult(CadastroSerie.RESULT_OK, returnIntent);
+        setResult(CadastroTreino.RESULT_OK, returnIntent);
         finish();
 
     }

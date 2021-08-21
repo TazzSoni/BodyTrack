@@ -36,7 +36,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include"
-        app:layout_constraintVertical_bias="0.858"
+        app:layout_constraintVertical_bias="0.702"
         tools:ignore="MissingConstraints">
 
         <ListView
@@ -78,5 +78,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/taViewNomeTreino"
         app:layout_constraintVertical_bias="0.235" />
+
+    <Button
+        android:id="@+id/btReiniciarTreino"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reiniciar Treino"
+        app:backgroundTint="@color/design_default_color_secondary_variant"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.994" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
